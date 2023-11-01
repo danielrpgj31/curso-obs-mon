@@ -15,9 +15,11 @@ app.listen(port, () => {
   console.log(`Exporter do Prometheus está rodando na porta ${port}`);
 });
 
+/*
 setInterval(() => {
   for (let i = 0; i < maxIterador; i++) {
     data.push(new Array(tamanhoArray).join("x"));
     console.log("Memoria alocada...");
   }
 }, temporizador);
+*/
