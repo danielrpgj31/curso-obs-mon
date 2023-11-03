@@ -2,7 +2,7 @@ const express = require("express");
 const defaultMetricsRoute = require("./metrics/defaultMetrics");
 
 const app = express();
-const port = 8080;
+const port = 8081;
 
 const maxIterador = 1000;
 const temporizador = 5000;

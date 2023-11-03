@@ -9,6 +9,11 @@ RUN npm install
 
 FROM node:13-alpine3.11
 
+RUN apk update && apk add --no-cache curl
+# Faça o download e instale o cAdvisor
+RUN curl -L https://github.com/google/cadvisor/releases/download/v0.37.0/cadvisor -o /usr/bin/cadvisor && \
+    chmod +x /usr/bin/cadvisor
+
 RUN mkdir /app
 WORKDIR /app
 
@@ -22,6 +27,6 @@ COPY ./metrics /app/metrics
 COPY --from=installer /app/package.json .
 COPY --from=installer /app/node_modules ./node_modules
 
-EXPOSE 8080
+EXPOSE 8081
 
 CMD npm start
