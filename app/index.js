@@ -7,7 +7,7 @@ const port = 8081;
 const maxIterador = 1000;
 const temporizador = 5000;
 const data = [];
-const tamanhoArray = 1000000;
+const tamanhoArray = 10000000;
 
 defaultMetricsRoute.setMetricsRoute(app);
 

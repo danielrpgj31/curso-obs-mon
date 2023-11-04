@@ -4,7 +4,7 @@
   "description": "Node.js Monitoring with Prometheus and Grafana",
   "main": "index.js",
   "scripts": {
-    "start": "node --trace-gc index.js"
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",

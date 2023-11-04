@@ -45,7 +45,7 @@ services:
     networks:
       - monitoring
   cadvisor:
-      image: google/cadvisor:latest
+      image: gcr.io/cadvisor/cadvisor
       volumes:
         - /var/run:/var/run:rw
         - /sys:/sys:ro
