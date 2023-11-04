@@ -20,3 +20,13 @@ ao invés da imagem
 
 google/cadvisor:latest
 
+> Cenarios 
+
+# 1 - Consumo intenso de memoria em processo nodejs dentro de container com memoria bem limitada
+Um container no cadisor vai apontar apenas consumo de memória batendo 100%, até o momento que 
+ele perde o container, em função de OOM da engine do nodejs que roda dentro do mesmo. 
+
+# 2 - Monitoramento pró ativo
+Implementar uma instrumentação da app nodejs menos invasiva possível (PM2) para coletar consumo de memória e CPU. 
+Utilizar API do PM2 em um script separado, para conectar no app monitorado, coletar as informações e enviar para 
+prometheus.
