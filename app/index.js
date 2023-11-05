@@ -14,15 +14,15 @@ app.listen(port, () => {
   console.log(`Exporter do Prometheus está rodando na porta ${port}`);
 });
 
-function memoryLeak(data) {
-
+function memoryLeak() {
+  var data = [];
   setInterval(() => {
     for (let i = 0; i < maxIterador; i++) {
-      data.push(new Array(tamanhoArray).join("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"));
+      data.push(
+        new Array(tamanhoArray).join("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+      );
     }
   }, temporizador);
-  
 }
 
-var data = [];
-memoryLeak(data);
+memoryLeak();
