@@ -40,6 +40,7 @@ services:
     ports:
       - 8081:8081
     mem_limit: 128m
+    memswap_limit: 128m
     expose:
       - 8081
     networks:
