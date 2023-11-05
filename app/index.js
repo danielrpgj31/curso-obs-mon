@@ -5,7 +5,7 @@ const app = express();
 const port = 8081;
 
 const maxIterador = 1000;
-const temporizador = 5000;
+const temporizador = 1000;
 const tamanhoArray = 10000000;
 
 defaultMetricsRoute.setMetricsRoute(app);
