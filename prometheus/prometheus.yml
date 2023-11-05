@@ -1,7 +1,7 @@
 global:
-  scrape_interval: 20s
-  scrape_timeout: 20s
+  scrape_interval: 30s
+  scrape_timeout: 30s
 scrape_configs:
   - job_name: "node-application-monitoring-app"
     static_configs:
-      - targets: ["app:8080"]
+      - targets: ["app:8081"]
