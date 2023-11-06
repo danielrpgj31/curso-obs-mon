@@ -14,19 +14,34 @@ app.listen(port, () => {
   console.log(`Exporter do Prometheus está rodando na porta ${port}`);
 });
 
+function preencheArrayLocal() {
+  var data = [];
+  for (let i = 0; i < maxIterador; i++) {
+    data.push(new Array(tamanhoArray).join("x"));
+  }
+  console.log("Tamanho da array: " + data.length);
+  console.log(
+    "Memoria alocada:",
+    process.memoryUsage().heapUsed / 1024 / 1024,
+    "MB"
+  );
+}
+
+function preencheArrayGlobal(data) {
+  for (let i = 0; i < maxIterador; i++) {
+    data.push(new Array(tamanhoArray).join("x"));
+  }
+  console.log("Tamanho da array: " + data.length);
+  console.log(
+    "Memoria alocada:",
+    process.memoryUsage().heapUsed / 1024 / 1024,
+    "MB"
+  );
+}
+
 function memoryLeak() {
   var data = [];
-  setInterval(() => {
-    for (let i = 0; i < maxIterador; i++) {
-      data.push(new Array(tamanhoArray).join("x"));
-    }
-    console.log("Tamanho da array: " + data.length);
-    console.log(
-      "Memoria alocada:",
-      process.memoryUsage().heapUsed / 1024 / 1024,
-      "MB"
-    );
-  }, temporizador);
+  setInterval(preencheArrayLocal, temporizador);
 }
 
 memoryLeak();
