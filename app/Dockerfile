@@ -22,7 +22,7 @@ RUN npm install pm2 -g
 RUN mkdir /app
 WORKDIR /app
 
-COPY index.js /app
+COPY leak.js /app
 COPY fixLeak.js /app
 
 #COPY counter.js /app
