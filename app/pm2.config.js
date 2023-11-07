@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: "app",
-      script: "index.js",
+      script: "fixLeak.js",
       //node_args: ["--trace_gc"],
       watch: true,
       env: {

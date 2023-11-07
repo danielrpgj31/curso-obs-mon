@@ -27,7 +27,7 @@ function preencheArrayLocal() {
   );
 }
 
-function preencheArrayGlobal(data) {
+function preencheArrayGlobal() {
   for (let i = 0; i < maxIterador; i++) {
     data.push(new Array(tamanhoArray).join("x"));
   }
@@ -39,8 +39,8 @@ function preencheArrayGlobal(data) {
   );
 }
 
+var data = [];
 function memoryLeak() {
-  var data = [];
   setInterval(preencheArrayLocal, temporizador);
 }
 
