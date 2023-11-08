@@ -41,7 +41,7 @@ function preencheArrayGlobal() {
 
 var data = [];
 function memoryLeak() {
-  setInterval(preencheArrayLocal, temporizador);
+  setInterval(preencheArrayGlobal, temporizador);
 }
 
 memoryLeak();

@@ -36,4 +36,7 @@ COPY --from=installer /app/node_modules ./node_modules
 
 EXPOSE 8081
 
-CMD ["pm2", "start", "fixLeak.js", "--no-daemon"]
+#Cenario 1 - Uso maior da area new da Heap (objetos young) e diminuicao do GC Scavenge (coleta de young)
+#CMD ["pm2", "start", "leak.js", "--no-daemon", "--node-args='--max_semi_space_size=128'"]
+#Cenario 2 - Uso majoritariamente da area Old da Heap e intenso do GC Scavenge (coleta de young)
+CMD ["pm2", "start", "leak.js", "--no-daemon"]
