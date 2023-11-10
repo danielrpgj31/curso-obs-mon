@@ -15,4 +15,4 @@ scrape_configs:
           - localhost
     labels:
       job: myapp
-      __path__: /var/log/myapp/*.log # Substitua pelo caminho dos seus logs
+      __path__: /var/log/tracegc/*.log # Substitua pelo caminho dos seus logs

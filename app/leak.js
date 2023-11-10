@@ -31,12 +31,9 @@ function preencheArrayGlobal() {
   for (let i = 0; i < maxIterador; i++) {
     data.push(new Array(tamanhoArray).join("x"));
   }
-  console.log("Tamanho da array: " + data.length);
-  console.log(
-    "Memoria alocada:",
-    process.memoryUsage().heapUsed / 1024 / 1024,
-    "MB"
-  );
+
+  //console.log("Tamanho da array: " + data.length);
+  //console.log("Memoria alocada:", process.memoryUsage().heapUsed / 1024 / 1024, "MB");
 }
 
 var data = [];
