@@ -2,7 +2,7 @@ const util = require("util");
 
 const waitForMySQL = async (connection) => {
   const query = util.promisify(connection.query).bind(connection);
-  let retries = 5;
+  let retries = 10;
 
   while (retries > 0) {
     try {
@@ -12,11 +12,11 @@ const waitForMySQL = async (connection) => {
     } catch (err) {
       retries -= 1;
       console.log(
-        `Tentando se reconectar ao MySQL. Tentativas restantes: ${retries}`
+        `Tentando se reconectar ao MySQL. ${err} \n Tentativas restantes: ${retries}`
       );
 
       // Espera 2 segundos antes de tentar novamente
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 5000));
     }
   }
 
