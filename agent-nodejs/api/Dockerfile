@@ -7,6 +7,7 @@ COPY ./api/package*.json ./
 RUN npm install
 
 COPY ./api/index.js .
+COPY ./api/utils/utils.js .
 
 EXPOSE 3000
 
