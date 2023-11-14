@@ -6,8 +6,7 @@ COPY ./api/package*.json ./
 
 RUN npm install
 
-COPY ./api/index.js .
-COPY ./api/utils/utils.js .
+COPY ./api/* .
 
 ENV DOCKERIZE_VERSION v0.7.0
 
