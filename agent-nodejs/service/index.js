@@ -1,5 +1,5 @@
-const fs = require('fs');
-const mysql = require('mysql2');
+const fs = require("fs");
+const mysql = require("mysql2");
 
 class FileProcessor {
   constructor(dbConfig) {
@@ -12,77 +12,84 @@ class FileProcessor {
       CREATE TABLE IF NOT EXISTS dados (
         id INT AUTO_INCREMENT PRIMARY KEY,
         campo1 VARCHAR(255),
-        campo2 VARCHAR(255),
-        campo3 VARCHAR(255)
+        campo2 VARCHAR(255)
         -- Adicione mais campos conforme necessário
       );
     `;
 
     this.connection.query(createTableQuery, (err) => {
       if (err) throw err;
-      console.log('Tabela criada ou já existe.');
+      console.log("Tabela criada ou já existe.");
     });
   }
 
   readFileAndInsertData(filePath, fileStruct) {
     const stream = fs.createReadStream(filePath);
+    const data = [];
 
-    stream.on('data', (chunk) => {
-      const lines = chunk.toString().split('\n');
+    stream.on("data", (chunk) => {
+      const lines = chunk.toString().split("\n");
+
       lines.forEach((line) => {
-        const data = fieldPositions.map((position) => line.slice(position.start, position.end).trim());
-        
+        let dataLine = [];
+
+        Object.keys(fileStruct).forEach((coluna) => {
+          const columnData = fileStruct[coluna];
+          dataLine.push(
+            line.substr(columnData.inicio, columnData.tamanho).trim()
+          );
+        });
+
+        console.log(`Dataline: ${dataLine}`);
+
         const insertQuery = `
-          INSERT INTO dados (campo1, campo2, campo3)
-          VALUES (?, ?, ?)
+          INSERT INTO dados (campo1, campo2)
+          VALUES (?, ?)
         `;
 
-        this.connection.query(insertQuery, data, (err) => {
+        this.connection.query(insertQuery, dataLine, (err) => {
           if (err) throw err;
-          console.log('Dados inseridos com sucesso.');
+          console.log("Dados inseridos com sucesso.");
         });
       });
     });
 
-    stream.on('end', () => {
+    stream.on("end", () => {
       this.connection.end();
     });
   }
 }
 
-// Uso: node index.js caminho/do/arquivo.txt "0-4,5-9,10-14"
-// Exemplo: node index.js dados.txt "0-4,5-9,10-14"
+// Uso: node index.js caminho/do/arquivo.txt
+// Exemplo: node index.js dados.txt
 const filePath = process.argv[2];
-const fieldPositionsInput = process.argv[3];
 
-if (!filePath || !fieldPositionsInput) {
-  console.error('Informe o caminho do arquivo e as posições dos campos.');
+if (!filePath) {
+  console.error("Informe o caminho do arquivo e as posições dos campos.");
   process.exit(1);
 }
 
 const fileStruct = {
-  gcType : {
-    start: 4,
-    end: 10
+  gcType: {
+    inicio: 0,
+    tamanho: 10,
   },
   timegc: {
-    start: 4,
-    end: 10
-  }
-}
+    inicio: 12,
+    tamanho: 5,
+  },
+};
 
 const dbConfig = {
-  host: 'localhost',
-  user: 'seu_usuario',
-  password: 'sua_senha',
-  database: 'sua_base_de_dados',
+  host: "localhost",
+  user: "myuser",
+  password: "mypassword",
+  database: "mydatabase",
 };
 
 function gcFilePersisteDb() {
-
   const processor = new FileProcessor(dbConfig);
   processor.readFileAndInsertData(filePath, fileStruct);
-  
 }
 
-module.exports = {gcFilePersisteDb}
+module.exports = { gcFilePersisteDb, printFileStruct };
