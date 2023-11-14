@@ -1,5 +1,4 @@
 const mysql = require("mysql2");
-const { waitForMySQL } = require("./utils"); // Importa a função waitForMySQL
 
 const connection = mysql.createConnection({
   host: "mysql-container",
@@ -11,23 +10,35 @@ const connection = mysql.createConnection({
   queueLimit: 0,
 });
 
-// Utiliza a função waitForMySQL antes de iniciar o servidor Express
-waitForMySQL(connection)
-  .then(() => {
-    
-    // Dados para inclusão na tabela
-    const dadosParaInclusao = {
-        campo1: 'valor1',
-        campo2: 'valor2',
-        // Adicione mais campos conforme necessário
-    };
-    
-    // Query para inclusão na tabela
-    const query = 'INSERT INTO sua_tabela SET ?';
+function AddPrice(dataToInsert) {
+  // Query SQL para inserção em lote
+  const insertQuery = "INSERT INTO preco (nome, preco) VALUES ?";
 
-     //TODO: Implementar INSERT 
+  // Executa a inserção em lote
+  connection.connect((err) => {
+    if (err) {
+      console.error("Erro ao conectar ao banco de dados:", err);
+      return;
+    }
 
-  })
-  .catch((err) => {
-    console.error("Erro ao conectar ao banco de dados:", err);
+    connection.query(
+      insertQuery,
+      [dataToInsert.map((item) => [item.name, item.price])],
+      (err, results) => {
+        if (err) {
+          console.error("Erro ao inserir em lote:", err);
+        } else {
+          console.log(
+            "Inserção em lote bem-sucedida. IDs inseridos:",
+            results.insertId
+          );
+        }
+
+        // Fecha a conexão após a inserção
+        connection.end();
+      }
+    );
   });
+}
+
+module.exports = { AddPrice };

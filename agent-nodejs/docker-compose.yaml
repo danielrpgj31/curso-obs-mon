@@ -22,7 +22,7 @@ services:
   node-app:
     build:
       context: .
-      dockerfile: ./api/Dockerfile
+      dockerfile: Dockerfile
     depends_on:
       - mysql-container
     ports:

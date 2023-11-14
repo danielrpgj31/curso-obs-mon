@@ -2,11 +2,11 @@ FROM node:alpine
 
 WORKDIR /app
 
-COPY ./api/package*.json ./
+COPY ./package*.json ./
 
 RUN npm install
 
-COPY ./api/* .
+COPY ./* .
 
 ENV DOCKERIZE_VERSION v0.7.0
 
