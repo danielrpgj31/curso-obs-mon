@@ -25,19 +25,34 @@ class FileProcessor {
 
   readFileAndInsertData(filePath, fileStruct) {
     const stream = fs.createReadStream(filePath);
-    const data = [];
-
     stream.on("data", (chunk) => {
       const lines = chunk.toString().split("\n");
 
       lines.forEach((line) => {
         let dataLine = [];
 
+        //1. Percorre cada coluna do fileStruct e busca na linha lida do arquivo a informacao
+        //2. Adiciona a informacao extraida da linha no formato dataLine[info1, info2, info3, etc]
         Object.keys(fileStruct).forEach((coluna) => {
           const columnData = fileStruct[coluna];
-          dataLine.push(
-            line.substr(columnData.inicio, columnData.tamanho).trim()
-          );
+          var data = [];
+          //Recupera dados da linha
+          switch (columnData.tipo) {
+            case "pattern": {
+              data = line
+                .substring(
+                  line.indexOf(columnData.pattern1),
+                  line.indexOf(
+                    columnData.pattern2,
+                    line.indexOf(columnData.pattern1)
+                  )
+                )
+                .trim();
+            }
+          }
+
+          //Preenche dataLine usado no SQL
+          dataLine.push(data);
         });
 
         console.log(`Dataline: ${dataLine}`);
@@ -71,12 +86,14 @@ if (!filePath) {
 
 const fileStruct = {
   gcType: {
-    inicio: 0,
-    tamanho: 10,
+    tipo: "pattern",
+    pattern1: "ms: ",
+    pattern2: " ",
   },
   timegc: {
-    inicio: 12,
-    tamanho: 5,
+    tipo: "pattern",
+    pattern1: "MB, ",
+    pattern2: "/",
   },
 };
 
@@ -92,4 +109,4 @@ function gcFilePersisteDb() {
   processor.readFileAndInsertData(filePath, fileStruct);
 }
 
-module.exports = { gcFilePersisteDb, printFileStruct };
+module.exports = { gcFilePersisteDb };

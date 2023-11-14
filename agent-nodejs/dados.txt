@@ -1,3 +1,9 @@
-marksweep   12
-marksweep   20
-marksweep   28
+[6089:0x73fe720]    42257 ms: Scavenge 303.4 (325.1) -> 287.8 (325.1) MB, 0.9 / 0.0 ms  (average mu = 0.989, current mu = 0.988) allocation failure; 
+[6089:0x73fe720]    42264 ms: Scavenge 303.4 (325.1) -> 287.9 (325.1) MB, 0.8 / 0.0 ms  (average mu = 0.989, current mu = 0.988) allocation failure; 
+[6089:0x73fe720]    42271 ms: Scavenge 303.5 (325.1) -> 287.9 (325.3) MB, 0.9 / 0.0 ms  (average mu = 0.989, current mu = 0.988) allocation failure; 
+[6089:0x73fe720]    42277 ms: Scavenge 303.5 (325.3) -> 288.0 (325.3) MB, 0.9 / 0.0 ms  (average mu = 0.989, current mu = 0.988) allocation failure; 
+[6089:0x73fe720]    42293 ms: Scavenge 303.6 (325.3) -> 288.0 (325.3) MB, 3.3 / 0.0 ms  (average mu = 0.989, current mu = 0.988) allocation failure; 
+[6089:0x73fe720]    42346 ms: Scavenge 303.6 (325.3) -> 288.1 (325.3) MB, 5.1 / 0.0 ms  (average mu = 0.989, current mu = 0.988) allocation failure; 
+[6089:0x73fe720]    42390 ms: Scavenge 303.7 (325.3) -> 288.1 (325.3) MB, 3.5 / 0.0 ms  (average mu = 0.989, current mu = 0.988) allocation failure; 
+[6089:0x73fe720]    42435 ms: Scavenge 303.7 (325.3) -> 288.2 (325.3) MB, 2.3 / 0.0 ms  (average mu = 0.989, current mu = 0.988) allocation failure; 
+[6089:0x73fe720]    42468 ms: Mark-sweep 298.4 (325.3) -> 288.5 (327.3) MB, 5.0 / 0.0 ms  (+ 135.4 ms in 737 steps since start of marking, biggest step 4.3 ms, walltime since start of marking 186 ms) (average mu = 0.989, current mu = 0.988) finalize incremental marking via stack guard; GC in old space requested
