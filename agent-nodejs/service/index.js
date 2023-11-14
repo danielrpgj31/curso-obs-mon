@@ -1,44 +1,88 @@
-const mysql = require("mysql2");
+const fs = require('fs');
+const mysql = require('mysql2');
 
-const connection = mysql.createConnection({
-  host: "mysql-container",
-  user: "myuser",
-  password: "mypassword",
-  database: "mydatabase",
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
-});
+class FileProcessor {
+  constructor(dbConfig) {
+    this.connection = mysql.createConnection(dbConfig);
+    this.createTable();
+  }
 
-function AddPrice(dataToInsert) {
-  // Query SQL para inserção em lote
-  const insertQuery = "INSERT INTO preco (nome, preco) VALUES ?";
+  createTable() {
+    const createTableQuery = `
+      CREATE TABLE IF NOT EXISTS dados (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        campo1 VARCHAR(255),
+        campo2 VARCHAR(255),
+        campo3 VARCHAR(255)
+        -- Adicione mais campos conforme necessário
+      );
+    `;
 
-  // Executa a inserção em lote
-  connection.connect((err) => {
-    if (err) {
-      console.error("Erro ao conectar ao banco de dados:", err);
-      return;
-    }
+    this.connection.query(createTableQuery, (err) => {
+      if (err) throw err;
+      console.log('Tabela criada ou já existe.');
+    });
+  }
 
-    connection.query(
-      insertQuery,
-      [dataToInsert.map((item) => [item.name, item.price])],
-      (err, results) => {
-        if (err) {
-          console.error("Erro ao inserir em lote:", err);
-        } else {
-          console.log(
-            "Inserção em lote bem-sucedida. IDs inseridos:",
-            results.insertId
-          );
-        }
+  readFileAndInsertData(filePath, fileStruct) {
+    const stream = fs.createReadStream(filePath);
 
-        // Fecha a conexão após a inserção
-        connection.end();
-      }
-    );
-  });
+    stream.on('data', (chunk) => {
+      const lines = chunk.toString().split('\n');
+      lines.forEach((line) => {
+        const data = fieldPositions.map((position) => line.slice(position.start, position.end).trim());
+        
+        const insertQuery = `
+          INSERT INTO dados (campo1, campo2, campo3)
+          VALUES (?, ?, ?)
+        `;
+
+        this.connection.query(insertQuery, data, (err) => {
+          if (err) throw err;
+          console.log('Dados inseridos com sucesso.');
+        });
+      });
+    });
+
+    stream.on('end', () => {
+      this.connection.end();
+    });
+  }
 }
 
-module.exports = { AddPrice };
+// Uso: node index.js caminho/do/arquivo.txt "0-4,5-9,10-14"
+// Exemplo: node index.js dados.txt "0-4,5-9,10-14"
+const filePath = process.argv[2];
+const fieldPositionsInput = process.argv[3];
+
+if (!filePath || !fieldPositionsInput) {
+  console.error('Informe o caminho do arquivo e as posições dos campos.');
+  process.exit(1);
+}
+
+const fileStruct = {
+  gcType : {
+    start: 4,
+    end: 10
+  },
+  timegc: {
+    start: 4,
+    end: 10
+  }
+}
+
+const dbConfig = {
+  host: 'localhost',
+  user: 'seu_usuario',
+  password: 'sua_senha',
+  database: 'sua_base_de_dados',
+};
+
+function gcFilePersisteDb() {
+
+  const processor = new FileProcessor(dbConfig);
+  processor.readFileAndInsertData(filePath, fileStruct);
+  
+}
+
+module.exports = {gcFilePersisteDb}
