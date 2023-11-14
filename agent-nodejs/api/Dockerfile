@@ -18,4 +18,5 @@ RUN apk update --no-cache \
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+#CMD ["npm", "start"]
+CMD ["dockerize", "-wait", "tcp://mysql-container:3306", "-timeout", "60s", "npm", "start"]
