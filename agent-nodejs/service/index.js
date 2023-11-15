@@ -29,44 +29,42 @@ class FileProcessor {
       const lines = chunk.toString().split("\n");
 
       lines.forEach((line) => {
-        let dataLine = [];
-
-        //1. Percorre cada coluna do fileStruct e busca na linha lida do arquivo a informacao
-        //2. Adiciona a informacao extraida da linha no formato dataLine[info1, info2, info3, etc]
-        Object.keys(fileStruct).forEach((coluna) => {
-          const columnData = fileStruct[coluna];
-          var data = [];
-          //Recupera dados da linha
-          switch (columnData.tipo) {
-            case "pattern": {
-              
-              if(line.indexOf(columnData.pattern1) > -1) {
-                var index1 = line.indexOf(columnData.pattern1)+columnData.pattern1.length;
-                var index2 = line.indexOf(columnData.pattern2, index1);
-                data = line.substring(index1, index2).trim();
+        if (line.trim().length > 0) {
+          let dataLine = [];
+          //1. Percorre cada coluna do fileStruct e busca na linha lida do arquivo a informacao
+          //2. Adiciona a informacao extraida da linha no formato dataLine[info1, info2, info3, etc]
+          Object.keys(fileStruct).forEach((coluna) => {
+            const columnData = fileStruct[coluna];
+            var data = [];
+            //Recupera dados da linha
+            switch (columnData.tipo) {
+              case "pattern": {
+                if (line.indexOf(columnData.pattern1) > -1) {
+                  var index1 =
+                    line.indexOf(columnData.pattern1) +
+                    columnData.pattern1.length;
+                  var index2 = line.indexOf(columnData.pattern2, index1);
+                  data = line.substring(index1, index2).trim();
+                }
               }
-
             }
 
-          }
+            //Preenche dataLine usado no SQL
+            if (data.length > 0) dataLine.push(data);
+          });
 
-          //Preenche dataLine usado no SQL
-          if (data.length > 0)
-            dataLine.push(data);
+          console.log(`Dataline: ${dataLine}`);
 
-        });
+          const insertQuery = `
+            INSERT INTO dados (campo1, campo2)
+            VALUES (?, ?)
+          `;
 
-        console.log(`Dataline: ${dataLine}`);
-
-        const insertQuery = `
-          INSERT INTO dados (campo1, campo2)
-          VALUES (?, ?)
-        `;
-
-        this.connection.query(insertQuery, dataLine, (err) => {
-          if (err) throw err;
-          console.log("Dados inseridos com sucesso.");
-        });
+          this.connection.query(insertQuery, dataLine, (err) => {
+            if (err) throw err;
+            console.log("Dados inseridos com sucesso.");
+          });
+        }
       });
     });
 
@@ -103,13 +101,23 @@ const fileStruct = {
   heap1a: {
     tipo: "pattern",
     pattern1: "Scavenge ",
-    pattern2: "("
+    pattern2: "(",
   },
   heap1b: {
     tipo: "pattern",
     pattern1: "Mark-sweep ",
-    pattern2: "("
-  }
+    pattern2: "(",
+  },
+  heap2: {
+    tipo: "pattern",
+    pattern1: "->",
+    pattern2: "(",
+  },
+  timestamp: {
+    tipo: "pattern",
+    pattern1: "]",
+    pattern2: "ms:",
+  },
 };
 
 const dbConfig = {
