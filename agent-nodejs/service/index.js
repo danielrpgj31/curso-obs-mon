@@ -56,8 +56,8 @@ class FileProcessor {
           console.log(`Dataline: ${dataLine}`);
 
           const insertQuery = `
-            INSERT INTO dados (campo1, campo2)
-            VALUES (?, ?)
+            INSERT INTO tracegc (type, timegc, heap_used, heap_cleaned, gcfrequency)
+            VALUES (?, ?, ?, ?, ?)
           `;
 
           this.connection.query(insertQuery, dataLine, (err) => {
