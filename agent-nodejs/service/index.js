@@ -39,20 +39,21 @@ class FileProcessor {
           //Recupera dados da linha
           switch (columnData.tipo) {
             case "pattern": {
-              data = line
-                .substring(
-                  line.indexOf(columnData.pattern1),
-                  line.indexOf(
-                    columnData.pattern2,
-                    line.indexOf(columnData.pattern1)
-                  )
-                )
-                .trim();
+              
+              if(line.indexOf(columnData.pattern1) > -1) {
+                var index1 = line.indexOf(columnData.pattern1)+columnData.pattern1.length;
+                var index2 = line.indexOf(columnData.pattern2, index1);
+                data = line.substring(index1, index2).trim();
+              }
+
             }
+
           }
 
           //Preenche dataLine usado no SQL
-          dataLine.push(data);
+          if (data.length > 0)
+            dataLine.push(data);
+
         });
 
         console.log(`Dataline: ${dataLine}`);
@@ -67,6 +68,10 @@ class FileProcessor {
           console.log("Dados inseridos com sucesso.");
         });
       });
+    });
+
+    stream.on("error", (err) => {
+      if (err) throw err;
     });
 
     stream.on("end", () => {
@@ -95,6 +100,16 @@ const fileStruct = {
     pattern1: "MB, ",
     pattern2: "/",
   },
+  heap1a: {
+    tipo: "pattern",
+    pattern1: "Scavenge ",
+    pattern2: "("
+  },
+  heap1b: {
+    tipo: "pattern",
+    pattern1: "Mark-sweep ",
+    pattern2: "("
+  }
 };
 
 const dbConfig = {

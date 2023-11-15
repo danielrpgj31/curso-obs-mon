@@ -12,7 +12,7 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}/agent-nodejs/index.js",
-            "args": ["/home/drjunior_br/dev/src/apm-docker-prometheus-grafana/agent-nodejs/dados.txt"]
+            "args": ["/home/danielrpgj/dev/src/apm-docker-prometheus-grafana/agent-nodejs/dados.txt"]
         }
     ]
 }
