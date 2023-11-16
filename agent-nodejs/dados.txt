@@ -1,9 +1,15 @@
+[6296:0x589c0c0]    99077 ms: Scavenge 260.9 (282.1) -> 245.4 (282.1) MB, 1.6 / 0.0 ms  (average mu = 0.989, current mu = 0.987) allocation failure 
 [6089:0x73fe720]    42257 ms: Scavenge 303.4 (325.1) -> 287.8 (325.1) MB, 0.9 / 0.0 ms  (average mu = 0.989, current mu = 0.988) allocation failure; 
 [6089:0x73fe720]    42264 ms: Scavenge 303.4 (325.1) -> 287.9 (325.1) MB, 0.8 / 0.0 ms  (average mu = 0.989, current mu = 0.988) allocation failure; 
 [6089:0x73fe720]    42271 ms: Scavenge 303.5 (325.1) -> 287.9 (325.3) MB, 0.9 / 0.0 ms  (average mu = 0.989, current mu = 0.988) allocation failure; 
 [6089:0x73fe720]    42277 ms: Scavenge 303.5 (325.3) -> 288.0 (325.3) MB, 0.9 / 0.0 ms  (average mu = 0.989, current mu = 0.988) allocation failure; 
 [6089:0x73fe720]    42293 ms: Scavenge 303.6 (325.3) -> 288.0 (325.3) MB, 3.3 / 0.0 ms  (average mu = 0.989, current mu = 0.988) allocation failure; 
+listening to port 8001
 [6089:0x73fe720]    42346 ms: Scavenge 303.6 (325.3) -> 288.1 (325.3) MB, 5.1 / 0.0 ms  (average mu = 0.989, current mu = 0.988) allocation failure; 
 [6089:0x73fe720]    42390 ms: Scavenge 303.7 (325.3) -> 288.1 (325.3) MB, 3.5 / 0.0 ms  (average mu = 0.989, current mu = 0.988) allocation failure; 
 [6089:0x73fe720]    42435 ms: Scavenge 303.7 (325.3) -> 288.2 (325.3) MB, 2.3 / 0.0 ms  (average mu = 0.989, current mu = 0.988) allocation failure; 
 [6089:0x73fe720]    42468 ms: Mark-sweep 298.4 (325.3) -> 288.5 (327.3) MB, 5.0 / 0.0 ms  (+ 135.4 ms in 737 steps since start of marking, biggest step 4.3 ms, walltime since start of marking 186 ms) (average mu = 0.989, current mu = 0.988) finalize incremental marking via stack guard; GC in old space requested
+[6296:0x589c0c0]     3422 ms: Mark-sweep 16.4 (45.0) -> 12.6 (46.5) MB, 7.4 / 0.0 ms  (+ 13.3 ms in 34 steps since start of marking, biggest step 0.8 ms, walltime since start of marking 25 ms) (average mu = 1.000, current mu = 1.000) finalize incremental marking via stack guard GC in old space requested
+[6296:0x589c0c0]    20296 ms: Mark-sweep 69.9 (89.1) -> 58.8 (94.1) MB, 11.9 / 0.0 ms  (+ 79.9 ms in 168 steps since start of marking, biggest step 0.8 ms, walltime since start of marking 113 ms) (average mu = 0.995, current mu = 0.995) finalize incremental marking via stack guard GC in old space requested
+[6296:0x589c0c0]    35663 ms: Mark-sweep 103.7 (130.0) -> 92.0 (129.1) MB, 8.2 / 0.0 ms  (+ 132.8 ms in 280 steps since start of marking, biggest step 1.4 ms, walltime since start of marking 176 ms) (average mu = 0.993, current mu = 0.991) finalize incremental marking via stack guard GC in old space requested
+

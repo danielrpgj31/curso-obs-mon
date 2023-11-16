@@ -15,7 +15,7 @@ class FileProcessor {
 
         if (line.trim().length > 0) {
 
-          let dataLine = [];
+          var dataLine = [];
 
           //1. Percorre cada coluna do fileStruct e busca na linha lida do arquivo a informacao
           //2. Adiciona a informacao extraida da linha no formato dataLine[info1, info2, info3, etc]
@@ -39,7 +39,12 @@ class FileProcessor {
 
           });
 
-          persistenceTrace.persistTrace(dataLine);
+          try {
+            console.log(`Inserindo dados processados: ${dataLine}`);
+            persistenceTrace.persistTrace(dataLine);
+          } catch (err) {
+            console.log(`Ocorreu um erro com a persistencia da linha ${dataLine}. Continuando..`);
+          }
 
         }
 

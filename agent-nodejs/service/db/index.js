@@ -24,14 +24,30 @@ class PersistenceTraceGc {
   }
 
   persistTrace(dataToPersist) {
+
+    if(dataToPersist.length < 5) {
+        // Encapsula o erro em uma nova exceção com mais informações
+        const novaExcecao = new Error(`Invalid dataToPersist content: ${dataToPersist}`);
+        novaExcecao.causaOriginal = err;
+        // Lança a nova exceção
+        throw novaExcecao;
+    }
+
     const insertQuery = `
       INSERT INTO tracegc (type, timegc, heap_used, heap_cleaned, gcfrequency)
       VALUES (?, ?, ?, ?, ?)
     `;
 
     this.connection.query(insertQuery, dataToPersist, (err) => {
-      if (err) throw err;
-      console.log("Dados inseridos com sucesso.");
+
+      if (err) {
+        // Encapsula o erro em uma nova exceção com mais informações
+        const novaExcecao = new Error(`Insert Error. Variable dataToPersist: ${dataToPersist}`);
+        novaExcecao.causaOriginal = err;
+        // Lança a nova exceção
+        throw novaExcecao;
+      } 
+      
     });
 
   }
