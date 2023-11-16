@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node --trace-gc index.js"
+    "start": "node --trace-gc --max_semi_space_size=528 index.js"
   },
   "author": "",
   "license": "ISC",
