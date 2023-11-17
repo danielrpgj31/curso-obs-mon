@@ -1,48 +1,33 @@
 const fs = require("fs");
-const mysql = require("mysql2");
+const db = require("../db")
 
 class FileProcessor {
-  constructor(dbConfig) {
-    this.connection = mysql.createConnection(dbConfig);
-    this.createTable();
-  }
-
-  createTable() {
-    const createTableQuery = `
-      CREATE TABLE IF NOT EXISTS dados (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        campo1 VARCHAR(255),
-        campo2 VARCHAR(255)
-        -- Adicione mais campos conforme necessário
-      );
-    `;
-
-    this.connection.query(createTableQuery, (err) => {
-      if (err) throw err;
-      console.log("Tabela criada ou já existe.");
-    });
-  }
 
   readFileAndInsertData(filePath, fileStruct) {
+    
     const stream = fs.createReadStream(filePath);
+    const persistenceTrace = new db.PersistenceTraceGc();
+
     stream.on("data", (chunk) => {
       const lines = chunk.toString().split("\n");
 
       lines.forEach((line) => {
+
         if (line.trim().length > 0) {
-          let dataLine = [];
+
+          var dataLine = [];
+
           //1. Percorre cada coluna do fileStruct e busca na linha lida do arquivo a informacao
           //2. Adiciona a informacao extraida da linha no formato dataLine[info1, info2, info3, etc]
           Object.keys(fileStruct).forEach((coluna) => {
             const columnData = fileStruct[coluna];
             var data = [];
+
             //Recupera dados da linha
             switch (columnData.tipo) {
               case "pattern": {
                 if (line.indexOf(columnData.pattern1) > -1) {
-                  var index1 =
-                    line.indexOf(columnData.pattern1) +
-                    columnData.pattern1.length;
+                  var index1 = line.indexOf(columnData.pattern1) + columnData.pattern1.length;
                   var index2 = line.indexOf(columnData.pattern2, index1);
                   data = line.substring(index1, index2).trim();
                 }
@@ -51,21 +36,20 @@ class FileProcessor {
 
             //Preenche dataLine usado no SQL
             if (data.length > 0) dataLine.push(data);
+
           });
 
-          console.log(`Dataline: ${dataLine}`);
+          try {
+            console.log(`Inserindo dados processados: ${dataLine}`);
+            persistenceTrace.persistTrace(dataLine);
+          } catch (err) {
+            console.log(`Ocorreu um erro com a persistencia da linha ${dataLine}. Continuando..`);
+          }
 
-          const insertQuery = `
-            INSERT INTO dados (campo1, campo2)
-            VALUES (?, ?)
-          `;
-
-          this.connection.query(insertQuery, dataLine, (err) => {
-            if (err) throw err;
-            console.log("Dados inseridos com sucesso.");
-          });
         }
+
       });
+
     });
 
     stream.on("error", (err) => {
@@ -73,7 +57,7 @@ class FileProcessor {
     });
 
     stream.on("end", () => {
-      this.connection.end();
+      persistenceTrace.closeDb();
     });
   }
 }
@@ -120,15 +104,8 @@ const fileStruct = {
   },
 };
 
-const dbConfig = {
-  host: "localhost",
-  user: "myuser",
-  password: "mypassword",
-  database: "mydatabase",
-};
-
 function gcFilePersisteDb() {
-  const processor = new FileProcessor(dbConfig);
+  const processor = new FileProcessor();
   processor.readFileAndInsertData(filePath, fileStruct);
 }
 
