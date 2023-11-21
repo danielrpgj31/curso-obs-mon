@@ -56,8 +56,8 @@ services:
       context: app
     ports:
       - 8081:8081
-    mem_limit: 128m
-    memswap_limit: 128m
+    mem_limit: 154m
+    memswap_limit: 154m
     expose:
       - 8081
     networks:

@@ -76,3 +76,7 @@ Validar o melhor timeout para prometheus.
 [5387:0x62236a0] 1940325 ms: Scavenge 162.4 (168.1) -> 160.6 (168.1) MB, 2.9 / 0.0 ms (average mu = 0.999, current mu = 0.998) allocation failure;
 
 ```
+
+#### 5 - Comparativo de desenpenho durante inicialização
+
+Implementar 3 solucoes de microserviço (Spring boot, quarkus, micronaut) em java, para demonstrar as diferenças e implementações utilizadas.

@@ -1,0 +1,8 @@
+Unknown command: "profiling"
+
+Did you mean one of these?
+    npm profile # Change settings on your registry profile
+    npm run profiling # run the "profiling" package script
+
+To see a list of supported npm commands, run:
+  npm help

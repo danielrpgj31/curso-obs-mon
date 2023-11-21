@@ -6,7 +6,7 @@ const port = 3000;
 
 // Configuração do MySQL
 const pool = mysql.createPool({
-  host: "localhost",
+  host: "mysql-container",
   user: "myuser",
   password: "mypassword",
   database: "mydatabase",

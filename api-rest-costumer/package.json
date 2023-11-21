@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node --trace-gc --max_semi_space_size=528 index.js"
+    "PROFILING-001": "node index.js",
+    "PROFILING-002": "node --trace-gc --max_semi_space_size=24 index.js",
+    "PROFILING-003": "node --trace-gc --max_semi_space_size=48 index.js",
+    "PROFILING-004": "node --trace-gc --max_semi_space_size=64 index.js"
   },
   "author": "",
   "license": "ISC",

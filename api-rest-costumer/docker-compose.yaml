@@ -20,13 +20,13 @@ services:
       - mysql-network
 
   node-app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ${IMAGEM}
     depends_on:
       - mysql-container
     ports:
       - "3000:3000"
+    mem_limit: 88m
+    memswap_limit: 88m
     networks:
       - mysql-network
 
