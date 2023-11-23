@@ -25,8 +25,8 @@ services:
       - mysql-container
     ports:
       - "3000:3000"
-    mem_limit: 88m
-    memswap_limit: 88m
+    mem_limit: ${MEMORY_NODE}
+    memswap_limit: ${MEMORY_NODE}
     networks:
       - mysql-network
 
