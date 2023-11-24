@@ -59,19 +59,18 @@ api-rest-costumer-node-app-1 exited with code 255
 
 > LOOP COUNT 1000000
 
-
 # TODO PROFILING 005 (Sem express/mysql, Limite 88MB de Heap)
 
-> Com dockerize para iniciar app no Docker
-
-> MAX SEMI SPACE = 0
-
-> 100 Threads
-
-> RAMP UP 1s
-
-> LOOP COUNT 1000000
-
 Sem express e sem MySQL
-Retorno Dummy, apenas para passar no teste 
-Avaliar a carga de memória em container com limite de 88MB. 
+Retorno Dummy, apenas para passar no teste
+Avaliar a carga de memória em container com limite de 88MB.
+
+# TODO NETWORKING 001 (Conexaoes HTTP)
+
+Testar os endpoints sync e assync e processamento bloquante de 5s.
+Validar quantidade de conexoes nao bloquantes pelo netstat -an
+
+# TODO NETWORKING 002 (Conexaoes HTTP)
+
+Testar os endpoints com conexao reduzida no throughput e processamento bloquante de 5s.
+Validar quantidade de conexoes nao bloquantes pelo netstat -an
