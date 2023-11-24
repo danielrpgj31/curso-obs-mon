@@ -102,9 +102,9 @@ const fileStruct = {
   },
 };
 
-function gcFilePersisteDb() {
+function gcFilePersisteToDb() {
   const processor = new FileProcessor();
   processor.readFileAndInsertData(filePath, fileStruct);
 }
 
-module.exports = { gcFilePersisteDb };
+module.exports = { gcFilePersisteToDb };
