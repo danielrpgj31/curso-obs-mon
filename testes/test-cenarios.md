@@ -10,6 +10,8 @@
 
 > LOOP COUNT 1000000
 
+> Resultado
+
 App cai em 35ms
 
 ```bash
@@ -35,24 +37,41 @@ api-rest-costumer-node-app-1 exited with code 255
 
 # TODO: PROFILING 004 - HEAP Limitada no composer (64mb)
 
-## Com dockerize para iniciar app no Docker
+> Com dockerize para iniciar app no Docker
 
-## MAX SEMI SPACE = 48
+> MAX SEMI SPACE = 48
 
-## 100 Threads
+> 100 Threads
 
-## RAMP UP 10s
+> RAMP UP 10s
 
-## LOOP COUNT 1000000
+> LOOP COUNT 1000000
 
 # TODO: HEAP Limitada no composer (128mb)
 
-## Com dockerize para iniciar app no Docker
+> Com dockerize para iniciar app no Docker
 
-## MAX SEMI SPACE = 24
+> MAX SEMI SPACE = 24
 
-## 100 Threads
+> 100 Threads
 
-## RAMP UP 1s
+> RAMP UP 1s
 
-## LOOP COUNT 1000000
+> LOOP COUNT 1000000
+
+
+# TODO PROFILING 005 (Sem express/mysql, Limite 88MB de Heap)
+
+> Com dockerize para iniciar app no Docker
+
+> MAX SEMI SPACE = 0
+
+> 100 Threads
+
+> RAMP UP 1s
+
+> LOOP COUNT 1000000
+
+Sem express e sem MySQL
+Retorno Dummy, apenas para passar no teste 
+Avaliar a carga de memória em container com limite de 88MB. 
