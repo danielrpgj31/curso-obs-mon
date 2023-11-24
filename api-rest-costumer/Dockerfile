@@ -19,4 +19,4 @@ RUN apk update --no-cache \
     && apk del wget
 EXPOSE 3000
 
-CMD ["dockerize", "-wait", "tcp://mysql-container:3306", "-timeout", "60s", "npm", "run", "PROFILING-001", "2>&1"]
+CMD ["dockerize", "-wait", "tcp://mysql-container:3306", "-timeout", "60s", "pm2", "start", "index-async-express-mysql.js", "--no-daemon"]
