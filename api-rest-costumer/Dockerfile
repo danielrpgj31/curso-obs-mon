@@ -6,8 +6,10 @@ COPY ./package*.json ./
 
 RUN npm install
 
-COPY ./index-sync.js .
-COPY ./index.js .
+COPY ./index-async-express-mysql.js .
+COPY ./index-sync-express-mysql.js .
+
+RUN npm install pm2 -g
 
 ENV DOCKERIZE_VERSION v0.7.0
 
