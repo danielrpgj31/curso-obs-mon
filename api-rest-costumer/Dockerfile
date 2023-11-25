@@ -19,4 +19,27 @@ RUN apk update --no-cache \
     && apk del wget
 EXPOSE 3000
 
-CMD ["dockerize", "-wait", "tcp://mysql-container:3306", "-timeout", "60s", "pm2", "start", "index-async-express-mysql.js", "--no-daemon"]
+## TESTES COM APP ASSÍNCRONA 
+
+#app assíncrono / heap(64) / semi_space(24)
+CMD ["dockerize", "-wait", "tcp://mysql-container:3306", "-timeout", "60s", "node", "--trace-gc", "--max_semi_space_size=0", "index-async-express-mysql.js", "2>&1"]
+
+#app assíncrono / semi_space(24)
+#CMD ["dockerize", "-wait", "tcp://mysql-container:3306", "-timeout", "60s", "node", "--trace-gc", "--max_semi_space_size=24", "index-async-express-mysql.js", "2>&1"]
+
+#app assíncrono / semi_space(24)
+#CMD ["dockerize", "-wait", "tcp://mysql-container:3306", "-timeout", "60s", "node", "--trace-gc", "--max_semi_space_size=48", "index-async-express-mysql.js", "2>&1"]
+
+#app assíncrono / semi_space(24)
+#CMD ["dockerize", "-wait", "tcp://mysql-container:3306", "-timeout", "60s", "node", "--trace-gc", "--max_semi_space_size=64", "index-async-express-mysql.js", "2>&1"]
+
+## TESTES COM APP SÍNCRONA 
+
+## TODO: Implementar um wait na api rest (alem da consulta ao banco) para forçar a latencia subir e analisar 
+##       Avaliar como será o comportamento do pool de conexoes do S.O com netstat x a contenção na thread
+##       principal do node. 
+
+## TODO: Implementar endpoint Prometheus na app para coleta de metricas de GC, latencia e throughput
+
+#app síncrono / semi_space(0)
+#CMD ["dockerize", "-wait", "tcp://mysql-container:3306", "-timeout", "60s", "node", "--trace-gc", "--max_semi_space_size=24", "index-sync-express-mysql.js", "2>&1"]
