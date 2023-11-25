@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "PROFILING-001": "node index-async-express-mysql.js",
-    "PROFILING-002": "node --trace-gc --max_semi_space_size=24 index-async-express-mysql.js",
-    "PROFILING-003": "node --trace-gc --max_semi_space_size=48 index-async-express-mysql.js",
-    "PROFILING-004": "node --trace-gc --max_semi_space_size=64 index-async-express-mysql.js"
+    "profiling-0heap": "node index-async-express-mysql.js",
+    "profiling-24heap": "node --trace-gc --max_semi_space_size=24 index-async-express-mysql.js",
+    "profiling-48heap": "node --trace-gc --max_semi_space_size=48 index-async-express-mysql.js",
+    "profiling-64heap": "node --trace-gc --max_semi_space_size=64 index-async-express-mysql.js"
   },
   "author": "",
   "license": "ISC",

@@ -74,3 +74,16 @@ Validar quantidade de conexoes nao bloquantes pelo netstat -an
 
 Testar os endpoints com conexao reduzida no throughput e processamento bloquante de 5s.
 Validar quantidade de conexoes nao bloquantes pelo netstat -an
+
+# TODO Rest Api Sincrona
+
+Implementar um wait na api rest (alem da consulta ao banco) para forçar a latencia subir e analisar.
+Avaliar como será o comportamento do pool de conexoes do S.O com netstat x a contenção na thread principal do node.
+
+# TODO Rest Api Sincrona
+
+Implementar endpoint Prometheus na app para coleta de metricas de GC, latencia e throughput
+
+# TODO: Balanceamento de carga
+
+Implementar endpoint Prometheus
