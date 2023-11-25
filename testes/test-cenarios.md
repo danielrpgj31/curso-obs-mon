@@ -12,7 +12,7 @@
 
 > Resultado
 
-App cai em 35ms
+App cai em 5ms
 
 ```bash
 api-rest-costumer-node-app-1 | 2023/11/20 15:23:01 Connected to tcp://mysql-container:3306
@@ -27,7 +27,7 @@ api-rest-costumer-node-app-1 exited with code 255
 
 > Com dockerize para iniciar app no Docker
 
-> MAX SEMI SPACE = 48
+> MAX SEMI SPACE = 24
 
 > 100 Threads
 
