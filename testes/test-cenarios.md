@@ -1,5 +1,7 @@
 # PROFILING 002 - HEAP Limitada no composer (64mb)
 
+![Alt text](image.png)
+
 > Com dockerize para iniciar app no Docker
 
 > MAX SEMI SPACE = 24
