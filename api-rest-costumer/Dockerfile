@@ -22,7 +22,8 @@ EXPOSE 3000
 ## TESTES COM APP ASSÍNCRONA 
 
 #app assíncrono / heap(64) / semi_space(24)
-CMD ["dockerize", "-wait", "tcp://mysql-container:3306", "-timeout", "60s", "node", "--trace-gc", "--max_semi_space_size=0", "index-async-express-mysql.js", "2>&1"]
+CMD ["node", "--trace-gc", "--max_semi_space_size=24", "index-async-express-mysql.js"]
+#CMD ["dockerize", "-wait", "tcp://mysql-container:3306", "-timeout", "60s", "node", "--trace-gc", "--max_semi_space_size=24", "index-async-express-mysql.js", "2>&1"]
 
 #app assíncrono / heap(88) / semi_space(24)
 #CMD ["dockerize", "-wait", "tcp://mysql-container:3306", "-timeout", "60s", "node", "--trace-gc", "--max_semi_space_size=24", "index-async-express-mysql.js", "2>&1"]
