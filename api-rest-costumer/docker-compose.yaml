@@ -30,7 +30,7 @@ services:
         - 8080
       networks:
         - mysql-network
-  node-app:
+  sync-mysql-sleep:
     image: ${IMAGEM}
     depends_on:
       - mysql-container
