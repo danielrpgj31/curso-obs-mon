@@ -21,11 +21,10 @@ EXPOSE 3000
 
 ## TESTES COM APP ASSÍNCRONA 
 
-#app assíncrono / heap(64) / semi_space(24)
-CMD ["dockerize", "-wait", "tcp://mysql-container:3306", "-timeout", "60s", "node", "--trace-gc", "--max_semi_space_size=0", "index-async-express-mysql.js", "2>&1"]
+#app assíncrono / heap(64) / semi_space(0)
+#CMD ["dockerize", "-wait", "tcp://mysql-container:3306", "-timeout", "60s", "node", "--trace-gc", "--max_semi_space_size=0", "index-async-express-mysql.js", "2>&1"]
 
-
-#app assíncrono / semi_space(24)
+#app assíncrono / heap(88) / semi_space(24)
 #CMD ["dockerize", "-wait", "tcp://mysql-container:3306", "-timeout", "60s", "node", "--trace-gc", "--max_semi_space_size=24", "index-async-express-mysql.js", "2>&1"]
 
 #app assíncrono / semi_space(24)
@@ -39,6 +38,9 @@ CMD ["dockerize", "-wait", "tcp://mysql-container:3306", "-timeout", "60s", "nod
 ## TODO: Implementar um wait na api rest (alem da consulta ao banco) para forçar a latencia subir e analisar 
 ##       Avaliar como será o comportamento do pool de conexoes do S.O com netstat x a contenção na thread
 ##       principal do node. 
+
+#app síncrono / heap(64) / semi_space(0)
+CMD ["dockerize", "-wait", "tcp://mysql-container:3306", "-timeout", "60s", "node", "--trace-gc", "--max_semi_space_size=0", "index-sync-express-mysql.js", "2>&1"]
 
 ## TODO: Implementar endpoint Prometheus na app para coleta de metricas de GC, latencia e throughput
 

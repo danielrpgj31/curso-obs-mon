@@ -1,15 +1,15 @@
 const express = require("express");
-const mysql = require("mysql");
+const mysql = require("mysql2");
 
 const app = express();
 const port = 3000;
 
 // Configuração do MySQL
 const connection = mysql.createConnection({
-  host: "localhost",
-  user: "seu_usuario",
-  password: "sua_senha",
-  database: "sua_base_de_dados",
+  host: "mysql-container",
+  user: "myuser",
+  password: "mypassword",
+  database: "mydatabase",
 });
 
 connection.connect();
@@ -19,7 +19,7 @@ app.get("/cliente/:codigo", (req, res) => {
   const codigoCliente = req.params.codigo;
 
   // Consulta síncrona no banco de dados
-  const query = `SELECT * FROM clientes WHERE codigo = ${codigoCliente}`;
+  const query = `SELECT * FROM costumer WHERE idCostumer = ${codigoCliente}`;
   connection.query(query, (error, results, fields) => {
     if (error) {
       res

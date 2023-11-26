@@ -1,7 +1,5 @@
 # PROFILING 002 - HEAP Limitada no composer (64mb)
 
-![Alt text](image.png)
-
 > Com dockerize para iniciar app no Docker
 
 > MAX SEMI SPACE = 24
@@ -77,10 +75,29 @@ Validar quantidade de conexoes nao bloquantes pelo netstat -an
 Testar os endpoints com conexao reduzida no throughput e processamento bloquante de 5s.
 Validar quantidade de conexoes nao bloquantes pelo netstat -an
 
+# TODO Rest Api Assincrona
+
+Avaliar como será o comportamento do pool de conexoes do S.O com netstat x a contenção na thread principal do node.
+Pool de conexao = 10
+
+- Troughput
+  ![Alt text](image.png)
+
+- Pool de conexao Mysql
+
+  SHOW STATUS LIKE 'Threads_connected';
+  Threads_connected: 11
+
 # TODO Rest Api Sincrona
 
-Implementar um wait na api rest (alem da consulta ao banco) para forçar a latencia subir e analisar.
-Avaliar como será o comportamento do pool de conexoes do S.O com netstat x a contenção na thread principal do node.
+Avaliar como será o comportamento sem pool de conexoes.
+
+- Troughput
+  ![Alt text](image-1.png)
+
+- Sem pool de conexoes
+  SHOW STATUS LIKE 'Threads_connected';
+  Threads_connected: 2
 
 # TODO Rest Api Sincrona
 
