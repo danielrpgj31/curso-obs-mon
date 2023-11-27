@@ -1,3 +1,5 @@
+-- Active: 1699976707876@@127.0.0.1@3306@mydatabase
+
 CREATE TABLE
     `costumer` (
         `idCostumer` int NOT NULL AUTO_INCREMENT COMMENT 'Primary Key',

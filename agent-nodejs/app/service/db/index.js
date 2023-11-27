@@ -24,6 +24,14 @@ class PersistenceTraceGc {
     });
   }
 
+  runCalc() {
+    const runCalcProc = `CALL CALCULARDIFERENCA();`;
+
+    this.connection.query(runCalcProc, (err) => {
+      console.log("Procedure de calculo executado.");
+    });
+  }
+
   persistTrace(dataToPersist) {
     if (dataToPersist.length < 5) {
       // Encapsula o erro em uma nova exceção com mais informações

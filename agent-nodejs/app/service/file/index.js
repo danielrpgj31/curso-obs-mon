@@ -1,5 +1,6 @@
 const fs = require("fs");
 const db = require("../db");
+const structs = require("./fileStructure");
 
 class FileProcessor {
   readFileAndInsertData(filePath, fileStruct) {
@@ -55,56 +56,15 @@ class FileProcessor {
     });
 
     stream.on("end", () => {
+      persistenceTrace.runCalc();
       persistenceTrace.closeDb();
     });
   }
 }
 
-// Uso: node index.js caminho/do/arquivo.txt
-// Exemplo: node index.js dados.txt
-const filePath = process.argv[2];
-
-if (!filePath) {
-  console.error("Informe o caminho do arquivo e as posições dos campos.");
-  process.exit(1);
-}
-
-const fileStruct = {
-  gcType: {
-    tipo: "pattern",
-    pattern1: "ms: ",
-    pattern2: " ",
-  },
-  timegc: {
-    tipo: "pattern",
-    pattern1: "MB, ",
-    pattern2: "/",
-  },
-  heap1a: {
-    tipo: "pattern",
-    pattern1: "Scavenge ",
-    pattern2: "(",
-  },
-  heap1b: {
-    tipo: "pattern",
-    pattern1: "Mark-sweep ",
-    pattern2: "(",
-  },
-  heap2: {
-    tipo: "pattern",
-    pattern1: "->",
-    pattern2: "(",
-  },
-  timestamp: {
-    tipo: "pattern",
-    pattern1: "]",
-    pattern2: "ms:",
-  },
-};
-
-function gcFilePersisteToDb() {
+function gcFilePersisteToDb(filePath) {
   const processor = new FileProcessor();
-  processor.readFileAndInsertData(filePath, fileStruct);
+  processor.readFileAndInsertData(filePath, structs.fileStruct);
 }
 
 module.exports = { gcFilePersisteToDb };
