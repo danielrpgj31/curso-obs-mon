@@ -21,6 +21,8 @@ RUN apk update --no-cache \
     && apk del wget
 EXPOSE 3000
 
+ENV UV_THREADPOOL_SIZE=30
+
 ## TESTES COM APP ASSÍNCRONA 
 
 #app assíncrono / heap(64) / semi_space(0)

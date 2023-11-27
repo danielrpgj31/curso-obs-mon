@@ -30,7 +30,8 @@ services:
         - 8080
       networks:
         - mysql-network
-  sync-mysql-sleep:
+  async-procedure:
+    container_name: ${CONTAINER_NAME}
     image: ${IMAGEM}
     depends_on:
       - mysql-container
@@ -38,6 +39,7 @@ services:
       - "3000:3000"
     mem_limit: ${MEMORY_NODE}
     memswap_limit: ${MEMORY_NODE}
+    cpus: 0.1
     networks:
       - mysql-network
 
