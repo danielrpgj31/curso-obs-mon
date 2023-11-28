@@ -1,44 +1,57 @@
-
-CREATE PROCEDURE CALCULARDIFERENCA() 
+-- Active: 1699976707876@@127.0.0.1@3306@mydatabase
+DROP PROCEDURE CALCULARDIFERENCA;
+CREATE DEFINER=`root`@`%` PROCEDURE `CALCULARDIFERENCA`()
 BEGIN
 	
     DECLARE gcfrequency_anterior INT;
 	DECLARE gcfrequency_atual INT;
+    DECLARE var_gcfrequency_diff DOUBLE;
+    DECLARE timegc_anterior DECIMAL(10,2);
+    DECLARE timegc_atual DECIMAL(10,2);
+    DECLARE gc_percentil DOUBLE;
     DECLARE idRow INT;
     
 	DECLARE done BOOLEAN DEFAULT FALSE;
 	
     DECLARE cur CURSOR FOR
-        SELECT id, gcfrequency
+        SELECT id, gcfrequency, timegc
         FROM tracegc
         ORDER BY
             id;
 	
-    -- Substitua 'sua_tabela' pelo nome real da sua tabela e 'algum_campo_de_ordem' pelo campo que define a ordem dos registros
+    
 	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
 
 	OPEN cur;
 
-	FETCH cur INTO idRow, gcfrequency_anterior;
+	FETCH cur INTO idRow, gcfrequency_anterior, timegc_anterior;
 
 	main_loop: LOOP
 
-        FETCH cur INTO idRow, gcfrequency_atual;
+        FETCH cur INTO idRow, gcfrequency_atual, timegc_atual;
 	    IF done THEN 
             LEAVE main_loop;
 	    END IF;
 
-        -- Calcular a diferença e armazenar no campo 'diferenca'
+        SET var_gcfrequency_diff = (gcfrequency_atual - gcfrequency_anterior);
+
+        IF var_gcfrequency_diff > 0 THEN
+            SET gc_percentil = (timegc_atual/var_gcfrequency_diff)*100;
+        ELSE 
+            SET gc_percentil = 0;
+        END IF;
+        
         UPDATE tracegc
         SET
-            gcfrequency_diff = gcfrequency_atual - gcfrequency_anterior
+            gcfrequency_diff = var_gcfrequency_diff,
+            gc_percentil_to_frequency = gc_percentil
         WHERE
             Id = idRow;
 
-    	SET gcfrequency_anterior = gcfrequency_atual;
-	
+    	SET gcfrequency_anterior = gcfrequency_atual, timegc_anterior = timegc_atual;
+
     END LOOP;
 	
     CLOSE cur;
 
-END 
+END

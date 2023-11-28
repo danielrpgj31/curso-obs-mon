@@ -8,5 +8,6 @@ CREATE TABLE
         heap_used DECIMAL(10, 2),
         heap_cleaned DECIMAL(10, 2),
         gcfrequency INT,
-        gcfrequency_diff INT
+        gcfrequency_diff INT,
+        gc_percentil_to_frequency INT
     ) COMMENT '';
