@@ -4,24 +4,6 @@ const mysql = require("mysql2");
 class PersistenceTraceGc {
   constructor() {
     this.connection = mysql.createConnection(dbConfig);
-    this.createTable();
-  }
-
-  createTable() {
-    const createTableQuery = `
-    CREATE TABLE tracegc(  
-      id int NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT 'Primary Key',
-      type VARCHAR(255),
-      timegc DECIMAL(4,2),
-      heap_used DECIMAL(10,2),
-      heap_cleaned DECIMAL(10,2),
-      gcfrequency INT
-    ) COMMENT '';
-    `;
-
-    this.connection.query(createTableQuery, (err) => {
-      console.log("Tabela criada ou já existe.");
-    });
   }
 
   runCalc() {
