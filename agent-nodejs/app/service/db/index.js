@@ -1,13 +1,13 @@
 const fs = require("fs");
 const mysql = require("mysql2");
 
-class PersistenceTraceGc {
+class DbTrace {
   constructor() {
     this.connection = mysql.createConnection(dbConfig);
   }
 
-  runCalc() {
-    const runCalcProc = `CALL CALCULARDIFERENCA();`;
+  runCalcGcStatistics() {
+    const runCalcProc = `CALL P_CALC_GC_STATISTICS();`;
 
     this.connection.query(runCalcProc, (err) => {
       console.log("Procedure de calculo executado.");
@@ -55,4 +55,4 @@ const dbConfig = {
   database: "mydatabase",
 };
 
-module.exports = { PersistenceTraceGc };
+module.exports = { DbTrace };

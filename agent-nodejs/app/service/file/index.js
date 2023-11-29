@@ -3,11 +3,14 @@ const db = require("../db");
 const structs = require("./fileStructure");
 
 class FileProcessor {
+  constructor() {
+    this.mysqlDb = null;
+  }
+
   readFileAndInsertData(filePath, fileStruct) {
     const stream = fs.createReadStream(filePath, {
       highWaterMark: 1024 * 1024,
     });
-    const persistenceTrace = new db.PersistenceTraceGc();
 
     stream.on("data", (chunk) => {
       const lines = chunk.toString().split("\n");
@@ -41,7 +44,7 @@ class FileProcessor {
 
           try {
             console.log(`Inserindo dados processados: ${dataLine}`);
-            persistenceTrace.persistTrace(dataLine);
+            mysqlDb.persistTrace(dataLine);
           } catch (err) {
             console.log(
               `Ocorreu um erro com a persistencia da linha ${dataLine}. Continuando..`
@@ -54,17 +57,13 @@ class FileProcessor {
     stream.on("error", (err) => {
       if (err) throw err;
     });
-
-    stream.on("end", () => {
-      persistenceTrace.runCalc();
-      persistenceTrace.closeDb();
-    });
   }
 }
 
-function gcFilePersisteToDb(filePath) {
+function persistGcTraceToDb(filePath, dbInstance) {
   const processor = new FileProcessor();
+  processor.mysqlDb = dbInstance;
   processor.readFileAndInsertData(filePath, structs.fileStruct);
 }
 
-module.exports = { gcFilePersisteToDb };
+module.exports = { persistGcTraceToDb };

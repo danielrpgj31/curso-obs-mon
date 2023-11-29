@@ -7,5 +7,15 @@ if (!filePath) {
   process.exit(1);
 }
 
-const persistenceGcFile = require("./service/file");
-persistenceGcFile.gcFilePersisteToDb(filePath);
+const db = require("./service/db");
+const readAndPersistFile = require("./service/file");
+const dbInstance = new db.DbTrace();
+
+//1 Persistencia do arquivo em uma tabela mysql
+readAndPersistFile.persistGcTraceToDb(filePath, dbInstance);
+
+//2 Calculo 1: tempo (ms) de GC entre um evento e o próximo do mesmo tipo
+dbInstance.runCalcGcStatistics();
+
+//
+dbInstance.closeDb();
