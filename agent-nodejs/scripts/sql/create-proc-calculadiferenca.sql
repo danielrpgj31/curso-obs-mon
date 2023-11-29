@@ -16,8 +16,7 @@ BEGIN
     DECLARE cur CURSOR FOR
         SELECT id, gcfrequency, timegc
         FROM tracegc
-        ORDER BY
-            id;
+        ORDER BY id;
 	
     
 	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;

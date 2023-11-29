@@ -1,16 +1,10 @@
 const express = require("express");
-const client = require("prom-client");
+const defaultMetricsRoute = require("./metrics/appMetrics");
 
 const app = express();
-const port = 3000;
+const port = 3003;
 
-// Create a Registry to register the metrics
-const register = new client.Registry();
-
-app.get("/metrics", async (req, res) => {
-  res.setHeader("Content-Type", register.contentType);
-  res.send(await register.metrics());
-});
+defaultMetricsRoute.setMetricsRoute(app);
 
 // Inicia o servidor
 app.listen(port, () => {
