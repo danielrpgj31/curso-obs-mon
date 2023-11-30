@@ -1,13 +1,11 @@
 const express = require("express");
 const mysql = require("mysql2/promise");
 const defaultMetricsRoute = require("./metrics/defaultMetrics");
-const performanceHook = require("./metrics/performanceHook");
 
 const app = express();
 const port = 3000;
 
 defaultMetricsRoute.setMetricsRoute(app);
-performanceHook.observe();
 
 // Configuração do MySQL
 const pool = mysql.createPool({
