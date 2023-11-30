@@ -8,7 +8,7 @@ RUN npm install
 
 COPY ./index-async-express-mysql.js .
 COPY ./index-sync-express-mysql.js .
-COPY ./index-async-express-procedure.js .
+COPY ./index-async-express-procedure-wait.js .
 COPY ./metrics/* ./metrics/
 
 
