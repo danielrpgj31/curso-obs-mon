@@ -31,7 +31,17 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}/agent-nodejs/app/index_prom_api.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Api Rest Debug",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/api-rest-customer/app/index-async-express-mysql.js"
         }
+
 
     ]
 }
