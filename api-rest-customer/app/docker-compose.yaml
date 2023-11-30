@@ -39,7 +39,7 @@ services:
       - "3000:3000"
     mem_limit: ${MEMORY_NODE}
     memswap_limit: ${MEMORY_NODE}
-    cpus: 0.1
+    #cpus: 0.1
     networks:
       - mysql-network
 

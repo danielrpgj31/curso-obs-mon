@@ -14,7 +14,7 @@ manageGcCounter.InitGc25Counter(client, register);
 gcMetrics.registerGCMetrics(client, register);
 
 //Coleta de estatisticas de GC especifícas
-performanceHook.observe();
+performanceHook.observe(manageGcCounter);
 
 function setMetricsRoute(app) {
   app.get("/metrics", async (req, res) => {

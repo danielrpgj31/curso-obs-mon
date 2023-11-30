@@ -1,6 +1,5 @@
 const { builtinModules } = require("module");
 const { PerformanceObserver } = require("perf_hooks");
-const { InitGc25Counter, IncGc25Counter } = require("./manageGcCounter");
 
 let gcStatistics = {
   type: "",
@@ -9,6 +8,8 @@ let gcStatistics = {
   lastStartTime: 0,
   gcDuration: 0,
 };
+
+let manageGcCounter = null;
 
 // Create a performance observer
 const obs = new PerformanceObserver((list) => {
@@ -19,7 +20,6 @@ function gc_event_callback(list) {
   const entry = list.getEntries()[0];
   updateStatistics(entry);
   console.log(`########## Evento GC ${JSON.stringify(gcStatistics)}`);
-
 }
 
 
@@ -34,7 +34,6 @@ function updateStatistics(entry) {
 
     //Calculos
     gcStatistics.gcDuration = entry.duration;
-    gcStatistics.lastStartTime = entry.lastStartTime;
     gcStatistics.diffGCTime = gcStatistics.lastStartTime > 0 ? atualGCStartTime - gcStatistics.lastStartTime : 0;
 
     if (gcStatistics.diffGCTime > 0) {
@@ -45,16 +44,17 @@ function updateStatistics(entry) {
     //Variavel de calculo
     gcStatistics.lastStartTime = entry.startTime;
 
-    //TODO Atualiza metrica prometheus
-
+    //Atualiza metrica prometheus gc25counter, apenas se gcPercentil > 25%
+    if(gcStatistics.gcPercentil > 25)
+      manageGcCounter.IncGc25Counter();
   }
 }
 
-function observe() {
+function observe(gcCounter) {
   // Subscribe to notifications of GCs
   obs.observe({ entryTypes: ["gc"] });
   // Registrar nova metrica de estatistica
-  
+  manageGcCounter = gcCounter;
 }
 
 function disconnect() {
