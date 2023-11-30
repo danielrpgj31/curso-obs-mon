@@ -8,10 +8,6 @@ let gcStatistics = {
   gcPercentil: 0,
   lastStartTime: 0,
   gcDuration: 0,
-  qtd25: 0.0,
-  qtd50: 0.0,
-  qtd75: 0.0,
-  qtd100: 0.0,
 };
 
 function updateStatistics(entry) {
@@ -52,6 +48,16 @@ const obs = new PerformanceObserver((list) => {
   updateStatistics(entry);
 
   console.log(`########## Evento GC ${JSON.stringify(gcStatistics)}`);
+  if (entry.entryType == "gc") {
+    let atualGCStartTime = entry.startTime;
+    diffGCTimeEvent = lastStartTime > 0 ? atualGCStartTime - lastStartTime : 0;
+    gcStatistics.diffGCTime = diffGCTimeEvent;
+    lastStartTime = entry.startTime;
+  }
+
+  console.log(
+    `evento type:${gcStatistics.type}, diffGCTime: ${gcStatistics.diffGCTime}`
+  );
 });
 
 function observe() {
