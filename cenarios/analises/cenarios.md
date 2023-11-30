@@ -1,4 +1,4 @@
-# PROFILING 001 - HEAP Limitada no composer (88m)
+# PROFILING 001 - HEAP Limitada no composer (512m)
 
 > Com dockerize para iniciar app no Docker
 
@@ -6,38 +6,35 @@
 
 > 100 Threads
 
-> RAMP UP 0.1s
+> RAMP UP 1s
 
 > LOOP COUNT 1000000
 
 > Resultado
 
-- Throughput: 144 / 1002743 requests
-  ![Alt text](image-1.png)
+  Memoria = 35%
+  CPU = 13%
+  Throughput = 4000/s
+  gc25percentil = 400 aos 4min
 
-- Memoria / CPU
-  ![Alt text](image-2.png)
-
-- Queda
-  Capturar a saída para fins de análise : informou a queda por falta de memória?
-
-# PROFILING 002 - HEAP Limitada no composer (64mb)
+# PROFILING 002 - HEAP Limitada no composer (512m)
 
 > Com dockerize para iniciar app no Docker
 
-> MAX SEMI SPACE = 24
+> MAX SEMI SPACE = 0
 
 > 100 Threads
 
-> RAMP UP 0.1s
+> RAMP UP 1s
 
 > LOOP COUNT 1000000
 
 > Resultado
 
-- Log app inicio e fim
-- Throughput
-  ![Alt text](image-3.png)
+  Memoria = 35%
+  CPU = 13%
+  Throughput = 2300/s
+  gc25percentil = 400 aos 8min
 
 # PROFILING 003 - HEAP Limitada no composer (88mb)
 
