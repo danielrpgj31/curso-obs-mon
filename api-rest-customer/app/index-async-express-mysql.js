@@ -1,11 +1,11 @@
 const express = require("express");
 const mysql = require("mysql2/promise");
-const defaultMetricsRoute = require("./metrics/defaultMetrics");
+const appMetrics = require("./metrics/defaultMetrics");
 
 const app = express();
 const port = 7001;
 
-defaultMetricsRoute.setMetricsRoute(app);
+appMetrics.setMetricsRoute(app);
 
 // Configuração do MySQL
 const pool = mysql.createPool({
@@ -23,6 +23,9 @@ app.get("/cliente/:codigo", async (req, res) => {
   const codigoCliente = req.params.codigo;
 
   try {
+    //Alimenta metrica de throughput
+    appMetrics.incThroughputValue();
+
     // Consulta assíncrona no banco de dados
     const connection = await pool.getConnection();
     const [rows, fields] = await connection.execute(

@@ -1,6 +1,7 @@
 const client = require("prom-client");
 const performanceHook = require("./performanceHook");
 const manageGcCounter = require("./manageGcCounter");
+const throughputMetric = require("./throughputMetric")
 const gcMetrics = require("./gcMetrics");
 
 
@@ -16,6 +17,9 @@ gcMetrics.registerGCMetrics(client, register);
 //Coleta de estatisticas de GC especifícas
 performanceHook.observe(manageGcCounter);
 
+//Coleta de throughput
+throughputMetric.InitThroughputApiCostumerGauge(client, register);
+
 function setMetricsRoute(app) {
   app.get("/metrics", async (req, res) => {
     res.setHeader("Content-Type", register.contentType);
@@ -23,4 +27,8 @@ function setMetricsRoute(app) {
   });
 }
 
-module.exports = { setMetricsRoute };
+function incThroughputValue() {
+  throughputMetric.IncThroughputApiCostumerGauge();
+}
+
+module.exports = { setMetricsRoute, incThroughputValue };
