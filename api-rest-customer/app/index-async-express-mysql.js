@@ -3,7 +3,7 @@ const mysql = require("mysql2/promise");
 const defaultMetricsRoute = require("./metrics/defaultMetrics");
 
 const app = express();
-const port = 3000;
+const port = 7001;
 
 defaultMetricsRoute.setMetricsRoute(app);
 
