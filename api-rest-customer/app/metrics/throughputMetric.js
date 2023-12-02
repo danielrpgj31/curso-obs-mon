@@ -1,6 +1,6 @@
 const client = require("prom-client");
 let throughputApiCostumerGauge = null;
-let throughput = 0;
+let apiCallsCount = 0;
 let tempoInicial = Date.now();
 let tempoFim = 0;
 
@@ -15,12 +15,14 @@ function InitThroughputApiCostumerGauge(client, register) {
 
 function IncThroughputApiCostumerGauge() {
   var diffTempo = 0;
+  var throughput = 0;
 
-  if (tempoFim == 0) {
-    tempoFim = Date.now();
-  } else {
-    diffTempo = Date.now() - tempoInicial;
-  }
+  apiCallsCount++;
+  diffTempo = (Date.now() - tempoInicial)/1000;
+  throughput = apiCallsCount / diffTempo;
+    
+  throughputApiCostumerGauge.set(throughput);
+
 }
 
 module.exports = {

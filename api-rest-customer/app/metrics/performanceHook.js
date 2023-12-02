@@ -19,7 +19,6 @@ const obs = new PerformanceObserver((list) => {
 function gc_event_callback(list) {
   const entry = list.getEntries()[0];
   updateStatistics(entry);
-  console.log(`########## Evento GC ${JSON.stringify(gcStatistics)}`);
 }
 
 
