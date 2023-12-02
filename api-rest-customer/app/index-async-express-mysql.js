@@ -1,6 +1,7 @@
 const express = require("express");
 const mysql = require("mysql2/promise");
 const appMetrics = require("./metrics/defaultMetrics");
+const log = require("./utils/log")
 
 const app = express();
 const port = 7001;
@@ -47,5 +48,5 @@ app.get("/cliente/:codigo", async (req, res) => {
 
 // Inicia o servidor
 app.listen(port, () => {
-  console.log(`Servidor rodando em http://localhost:${port}`);
+  log.logMessage(`Servidor rodando em http://localhost:${port}`);
 });

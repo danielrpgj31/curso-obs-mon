@@ -10,6 +10,7 @@ COPY ./index-async-express-mysql.js .
 COPY ./index-sync-express-mysql.js .
 COPY ./index-async-express-procedure-wait.js .
 COPY ./metrics/* ./metrics/
+COPY ./utils/* ./utils/
 
 
 RUN npm install pm2 -g
