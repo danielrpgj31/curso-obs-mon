@@ -1,7 +1,7 @@
 const client = require("prom-client");
 let gc25counter = null;
 
-function InitGc25Counter(client, register) {
+function initGc25Counter(client, register) {
 
   gc25counter = new client.Counter({
     name: "gc25counter",
@@ -14,8 +14,8 @@ function InitGc25Counter(client, register) {
 
 }
 
-function IncGc25Counter() {
+function incGc25Counter() {
   gc25counter.inc({ tipo: "gc25counter" });
 }
 
-module.exports = { InitGc25Counter, IncGc25Counter };
+module.exports = { initGc25Counter, incGc25Counter };

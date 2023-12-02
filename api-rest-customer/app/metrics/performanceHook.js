@@ -9,7 +9,7 @@ let gcStatistics = {
   gcDuration: 0,
 };
 
-let manageGcCounter = null;
+//let manageGcCounter = null;
 
 // Create a performance observer
 const obs = new PerformanceObserver((list) => {
@@ -45,7 +45,7 @@ function updateStatistics(entry) {
 
     //Atualiza metrica prometheus gc25counter, apenas se gcPercentil > 25%
     if(gcStatistics.gcPercentil > 25)
-      manageGcCounter.IncGc25Counter();
+      manageGcCounter.incGc25Counter();
   }
 }
 

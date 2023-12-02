@@ -4,21 +4,20 @@ const manageGcCounter = require("./manageGcCounter");
 const throughputMetric = require("./throughputMetric")
 const gcMetrics = require("./gcMetrics");
 
-
-// Create a Registry to register the metrics
+// create a Registry to register the metrics
 const register = new client.Registry();
 
-// Coleta de metrica estatistica especifica
-manageGcCounter.InitGc25Counter(client, register);
+// criacao de metrica estatistica especifica
+manageGcCounter.initGc25Counter(client, register);
 
-// Coleta de varias metricas de GC
+// coleta de varias metricas de GC
 gcMetrics.registerGCMetrics(client, register);
 
-//Coleta de estatisticas de GC especifícas
+// coleta de estatisticas de GC especifícas
 performanceHook.observe(manageGcCounter);
 
-//Coleta de throughput
-throughputMetric.InitThroughputApiCostumerGauge(client, register);
+// coleta de throughput
+throughputMetric.initThroughputApiCostumerGauge(client, register);
 
 function setMetricsRoute(app) {
   app.get("/metrics", async (req, res) => {
@@ -28,7 +27,7 @@ function setMetricsRoute(app) {
 }
 
 function incThroughputValue() {
-  throughputMetric.IncThroughputApiCostumerGauge();
+  throughputMetric.incThroughputApiCostumerGauge();
 }
 
 module.exports = { setMetricsRoute, incThroughputValue };

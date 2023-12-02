@@ -4,7 +4,7 @@ let apiCallsCount = 0;
 let tempoInicial = Date.now();
 let tempoFim = 0;
 
-function InitThroughputApiCostumerGauge(client, register) {
+function initThroughputApiCostumerGauge(client, register) {
   throughputApiCostumerGauge = new client.Gauge({
     name: "throughputApiCostumerGauge",
     help: "Throughput da Api de Customer. Em Requisições/Minuto",
@@ -13,7 +13,7 @@ function InitThroughputApiCostumerGauge(client, register) {
   register.registerMetric(throughputApiCostumerGauge);
 }
 
-function IncThroughputApiCostumerGauge() {
+function incThroughputApiCostumerGauge() {
   var diffTempo = 0;
   var throughput = 0;
 
@@ -26,6 +26,6 @@ function IncThroughputApiCostumerGauge() {
 }
 
 module.exports = {
-  InitThroughputApiCostumerGauge,
-  IncThroughputApiCostumerGauge,
+  initThroughputApiCostumerGauge,
+  incThroughputApiCostumerGauge,
 };
