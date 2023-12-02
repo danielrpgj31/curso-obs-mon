@@ -13,5 +13,8 @@
     "express": "^4.18.2",
     "faker": "^6.6.6",
     "prom-client": "^15.0.0"
+  },
+  "devDependencies": {
+    "node-report": "^2.2.11"
   }
 }

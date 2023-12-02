@@ -5,8 +5,8 @@ const app = express();
 const port = 8081;
 
 const maxIterador = 1000;
-const temporizador = 5000;
-const tamanhoArray = 1000;
+const temporizador = 500;
+const tamanhoArray = 100000;
 
 defaultMetricsRoute.setMetricsRoute(app);
 
@@ -32,8 +32,8 @@ function preencheArrayGlobal() {
     data.push(new Array(tamanhoArray).join("x"));
   }
 
-  //console.log("Tamanho da array: " + data.length);
-  //console.log("Memoria alocada:", process.memoryUsage().heapUsed / 1024 / 1024, "MB");
+  console.log("Tamanho da array: " + data.length);
+  console.log("Memoria alocada:", process.memoryUsage().heapUsed / 1024 / 1024, "MB");
 }
 
 var data = [];
