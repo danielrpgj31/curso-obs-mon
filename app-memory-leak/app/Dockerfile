@@ -28,6 +28,7 @@ COPY fixLeak.js /app
 
 #COPY counter.js /app
 COPY ./metrics /app/metrics
+COPY ./utils /app/utils
 #COPY gauge.js /app
 #COPY histogram.js /app
 #COPY summary.js /app
