@@ -17,7 +17,7 @@ services:
   app:
     image: ${IMAGEM}
     ports:
-      - "7001:7001"
+      - "8081:8081"
     mem_limit: ${MEMORY_NODE}
     memswap_limit: ${MEMORY_NODE}
     #cpus: 0.1

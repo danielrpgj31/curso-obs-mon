@@ -6,6 +6,10 @@ volumes:
     grafana_data: {}
     mysql-data: {}
 services:
+  memcached:
+    image: memcached:latest
+    ports:
+      - "11211:11211"
   mysql-container:
     image: mysql:latest
     container_name: mysql-container
