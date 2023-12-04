@@ -1,8 +1,8 @@
 const express = require("express");
 const mysql = require("mysql2/promise");
 const appMetrics = require("./metrics/defaultMetrics");
-const log = require("./utils/log")
-const general = require("./utils/general")
+const log = require("./utils/log");
+const general = require("./utils/general");
 const app = express();
 const port = 7001;
 
@@ -46,8 +46,8 @@ app.get("/cliente/:codigo", async (req, res) => {
   }
 });
 
-//Api que tem retorno imediato 
-//porém é atrasado diretamente pela latência do eventLoop. 
+//Api que tem retorno imediato
+//porém é atrasado diretamente pela latência do eventLoop.
 app.get("/now", async (req, res) => {
   try {
     res.json("Processamento '/now' efetuada com sucesso.");
@@ -57,9 +57,11 @@ app.get("/now", async (req, res) => {
 });
 
 //Seta o interval:: Vai ocupar o eventloop de forma a impactar toda a app
+//assim que o codigo principal dentro das chaves {}, for executado, vai parar
+//toda a aplicação, lembrando que é single-thread.
 setInterval(() => {
-  general.delay(12000);  
-}, 1000);
+  general.delay(12000);
+}, 8000);
 
 // Inicia o servidor
 app.listen(port, () => {
