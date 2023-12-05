@@ -37,7 +37,7 @@ services:
       networks:
         - networkall
   node_rest_api:
-    container_name: ${CONTAINER_NAME_NODEcd}
+    container_name: ${CONTAINER_NAME_NODE}
     image: ${IMAGEM}
     depends_on:
       - mysql-container

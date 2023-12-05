@@ -6,6 +6,7 @@ COPY ./package*.json ./
 
 RUN npm install
 
+COPY ./index-axios-java.js .
 COPY ./index-async-express-mysql.js .
 COPY ./index-sync-express-mysql.js .
 COPY ./index-async-express-procedure-wait.js .
