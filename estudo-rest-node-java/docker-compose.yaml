@@ -36,8 +36,8 @@ services:
         - 8080
       networks:
         - networkall
-  app:
-    container_name: ${CONTAINER_NAME}
+  node_rest_api:
+    container_name: ${CONTAINER_NAME_NODEcd}
     image: ${IMAGEM}
     depends_on:
       - mysql-container
@@ -46,5 +46,16 @@ services:
     mem_limit: ${MEMORY_NODE}
     memswap_limit: ${MEMORY_NODE}
     #cpus: 0.1
+    networks:
+      - networkall
+  java_rest_api:
+    container_name: ${CONTAINER_NAME_JAVA}
+    image: ${IMAGEM_JAVA}
+    depends_on:
+      - mysql-container
+    ports:
+      - "8090:8090"
+    mem_limit: ${MEMORY_NODE_JAVA}
+    memswap_limit: ${MEMORY_NODE_JAVA}
     networks:
       - networkall
