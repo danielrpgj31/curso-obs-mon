@@ -1,4 +1,4 @@
-package main.java.com.example.study;
+package com.example.study;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
