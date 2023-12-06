@@ -1,1 +1,11 @@
 node_modules
+estudo-rest-node-java/java_rest_api/target/*
+estudo-rest-node-java/java_rest_api/target/classes/com/example/study/RestApiServer.class
+estudo-rest-node-java/java_rest_api/target/classes/com/example/study/RestApiServer.class
+estudo-rest-node-java/java_rest_api/.gitignore
+estudo-rest-node-java/java_rest_api/target/classes/com/example/study/RestApiServer.class
+estudo-rest-node-java/java_rest_api/target/classes/com/example/study/RestApiConsumer.class
+estudo-rest-node-java/java_rest_api/target/classes/com/example/study/ApiController.class
+estudo-rest-node-java/java_rest_api/target/study.rest-0.0.1-SNAPSHOT.jar.original
+estudo-rest-node-java/java_rest_api/target/study.rest-0.0.1-SNAPSHOT.jar
+estudo-rest-node-java/java_rest_api/target/classes/com/example/study/RestApiServer.class
