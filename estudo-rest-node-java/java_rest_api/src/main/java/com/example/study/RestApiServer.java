@@ -11,10 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.concurrent.CompletableFuture;
 
 @SpringBootApplication
-public class RestApiSystem {
+public class RestApiServer {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RestApiSystem.class, args);
+		SpringApplication.run(RestApiServer.class, args);
 
 		System.out.println("INICIO :: Run estático da Classe de Api Rest em análise, RestApiSystem...");
 

@@ -11,7 +11,7 @@
 	<groupId>net.performance</groupId>
 	<artifactId>study.rest</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>com.example.study.RestApiSystem</name>
+	<name>com.example.study.RestApiServer</name>
 	<description>Demo REST api project for performance/tuning studies. </description>
 	<properties>
 		<java.version>17</java.version>
