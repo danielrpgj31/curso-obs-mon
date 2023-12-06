@@ -6,6 +6,12 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.study.http.ExternaApiService;
+import com.example.study.utils.Logger;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.concurrent.CompletableFuture;
 
 @SpringBootApplication
@@ -13,9 +19,7 @@ public class RestApiServer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(RestApiServer.class, args);
-
-		System.out.println("INICIO :: Run estático da Classe de Api Rest em análise, RestApiSystem...");
-		
+		System.out.println(Logger.getTimeForLogger("Inicio da aplicacao Springboot Web.."));
 	}
 
 }
@@ -24,8 +28,11 @@ public class RestApiServer {
 @RequestMapping("/api")
 class ApiController {
 
-	public ApiController() {
-		System.out.println("Thread id - Construtor: " + Thread.currentThread().getId());
+	private final ExternaApiService externaApiService;
+
+	@Autowired
+	public ApiController(ExternaApiService externaApiService) {
+		this.externaApiService = externaApiService;
 	}
 
 	@GetMapping("/async")
@@ -39,6 +46,22 @@ class ApiController {
 			e.printStackTrace();
 		}
 
-		return CompletableFuture.completedFuture("Resposta assíncrona!");
+		return CompletableFuture.completedFuture("Resposta síncrona!");
 	}
+
+	@GetMapping("/getsyncremoteapi")
+	public String getExternEndpoint() {
+		String jsonString = "";
+		// Simula uma operação demorada
+
+		try {
+			System.out.println("Thread id - Metodo sincrono: " + Thread.currentThread().getId());
+			jsonString = externaApiService.obterDadosDaApi();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return jsonString;
+	}
+
 }
