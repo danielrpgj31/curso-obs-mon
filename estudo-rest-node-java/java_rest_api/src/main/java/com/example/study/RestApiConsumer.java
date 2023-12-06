@@ -1,4 +1,4 @@
-package main.java.com.example.study;
+package com.example.study;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 public class RestApiConsumer {
-
 
     private RestTemplate restTemplate;
 
@@ -24,5 +23,5 @@ public class RestApiConsumer {
         // Você pode processar a resposta aqui conforme necessário
         return ResponseEntity.ok(response.getBody());
     }
-    
+
 }
