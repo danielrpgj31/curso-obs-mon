@@ -19,7 +19,7 @@ public class RestApiServer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(RestApiServer.class, args);
-		System.out.println(Logger.getTimeForLogger("Inicio da aplicacao Springboot Web.."));
+		Logger.getTimeForLogger("Inicio da aplicacao Springboot Web..");
 	}
 
 }
@@ -40,7 +40,7 @@ class ApiController {
 	public CompletableFuture<String> asyncEndpoint() {
 		// Simula uma operação demorada
 		try {
-			System.out.println("Thread id - Metodo assincrono: " + Thread.currentThread().getId());
+			Logger.getTimeForLogger("Thread id - Metodo assincrono: " + Thread.currentThread().getId());
 			Thread.sleep(20000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -49,14 +49,14 @@ class ApiController {
 		return CompletableFuture.completedFuture("Resposta síncrona!");
 	}
 
-	@GetMapping("/getsyncremoteapi")
+	@GetMapping("/sync/external")
 	public String getExternEndpoint() {
 		String jsonString = "";
 		// Simula uma operação demorada
 
 		try {
-			System.out.println("Thread id - Metodo sincrono: " + Thread.currentThread().getId());
-			jsonString = externaApiService.obterDadosDaApi();
+			Logger.getTimeForLogger("Thread id - Metodo sincrono: " + Thread.currentThread().getId());
+			jsonString = externaApiService.obterDadosSyncApi();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

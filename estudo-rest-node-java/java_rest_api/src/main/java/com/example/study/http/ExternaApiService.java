@@ -22,7 +22,7 @@ public class ExternaApiService {
         this.restTemplate = restTemplate;
     }
 
-    public String obterDadosDaApi() {
+    public String obterDadosSyncApi() {
         String url = apiUrl;
         return restTemplate.getForObject(url, String.class);
     }
