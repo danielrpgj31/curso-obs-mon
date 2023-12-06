@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.study.http.ExternaApiService;
+import com.example.study.http.RemoteApiService;
 import com.example.study.utils.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +28,10 @@ public class RestApiServer {
 @RequestMapping("/api")
 class ApiController {
 
-	private final ExternaApiService externaApiService;
+	private final RemoteApiService externaApiService;
 
 	@Autowired
-	public ApiController(ExternaApiService externaApiService) {
+	public ApiController(RemoteApiService externaApiService) {
 		this.externaApiService = externaApiService;
 	}
 
