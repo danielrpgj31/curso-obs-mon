@@ -46,11 +46,22 @@ app.get("/cliente/:codigo", async (req, res) => {
   }
 });
 
+function chamataExterna() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("Passaram-se 2 segundos!");
+    }, 2000);
+  });
+}
+
 //Api que tem retorno imediato
 //porém é atrasado diretamente pela latência do eventLoop.
 app.get("/now", async (req, res) => {
   try {
-    res.json("Processamento '/now' efetuada com sucesso.");
+    log.logMessage("Chamada api rest externa...");
+    await chamataExterna().then((resultado) => {
+      res.json("Chamada api rest externa: " + resultado);
+    });
   } catch (error) {
     res.status(500).json({ error: "Erro ao processar api '/now'" });
   }
