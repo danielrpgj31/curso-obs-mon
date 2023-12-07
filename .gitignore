@@ -6,11 +6,13 @@ estudo-rest-node-java/java_rest_api/target/classes/com/example/study/RestApiServ
 estudo-rest-node-java/java_rest_api/target/classes/com/example/study/config/AppConfig.class
 estudo-rest-node-java/java_rest_api/target/classes/com/example/study/http/AsyncRestClientWithHttpClient.class
 estudo-rest-node-java/java_rest_api/target/classes/com/example/study/http/ExternaApiService.class
+estudo-rest-node-java/java_rest_api/target/classes/com/example/study/http/RemoteApiService.class
 estudo-rest-node-java/java_rest_api/target/classes/com/example/study/utils/Logger.class
+estudo-rest-node-java/java_rest_api/target/maven-archiver/pom.properties
 estudo-rest-node-java/java_rest_api/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
 estudo-rest-node-java/java_rest_api/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
-estudo-rest-node-java/java_rest_api/target/study.rest-0.0.1-SNAPSHOT.jar
-estudo-rest-node-java/java_rest_api/target/study.rest-0.0.1-SNAPSHOT.jar.original
+estudo-rest-node-java/java_rest_api/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst
+estudo-rest-node-java/java_rest_api/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
 estudo-rest-node-java/java_rest_api/target/classes/com/example/study/ApiController.class
 estudo-rest-node-java/java_rest_api/target/classes/com/example/study/RestApiServer.class
 estudo-rest-node-java/java_rest_api/target/classes/com/example/study/config/AppConfig.class

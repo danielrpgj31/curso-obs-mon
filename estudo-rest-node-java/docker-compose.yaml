@@ -31,9 +31,9 @@ services:
         - /sys:/sys:ro
         - /var/lib/docker/:/var/lib/docker:ro
       ports:
-        - "8080:8080"      
+        - "8010:8010"      
       expose:
-        - 8080
+        - 8010
       networks:
         - networkall
   node_rest_api:
@@ -54,7 +54,7 @@ services:
     depends_on:
       - mysql-container
     ports:
-      - "8090:8090"
+      - "8080:8080"
     mem_limit: ${MEMORY_NODE_JAVA}
     memswap_limit: ${MEMORY_NODE_JAVA}
     networks:

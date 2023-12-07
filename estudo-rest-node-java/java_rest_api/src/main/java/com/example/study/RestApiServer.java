@@ -14,7 +14,7 @@ import java.net.http.HttpResponse;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-import com.example.study.http.ExternaApiService;
+import com.example.study.http.RemoteApiService;
 import com.example.study.utils.Logger;
 
 @SpringBootApplication
@@ -31,10 +31,10 @@ public class RestApiServer {
 @RequestMapping("/api")
 class ApiController {
 
-	private final ExternaApiService externaApiService;
+	private final RemoteApiService externaApiService;
 
 	@Autowired
-	public ApiController(ExternaApiService externaApiService) {
+	public ApiController(RemoteApiService externaApiService) {
 		this.externaApiService = externaApiService;
 	}
 
@@ -68,7 +68,7 @@ class ApiController {
 		return CompletableFuture.completedFuture("Http Body: " + responseBody);
 	}
 
-	@GetMapping("/getsyncremoteapi")
+	@GetMapping("/sync/external")
 	public String getExternEndpoint() {
 		String jsonString = "";
 		// Simula uma operação demorada

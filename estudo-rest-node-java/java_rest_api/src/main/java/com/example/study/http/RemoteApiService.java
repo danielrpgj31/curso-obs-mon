@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class ExternaApiService {
+public class RemoteApiService {
 
     private String apiUrl = "http://api-rest-node:7001/now";
 
@@ -19,15 +19,11 @@ public class ExternaApiService {
 
     private final RestTemplate restTemplate;
 
-    public RestTemplate getRestTemplate() {
-        return this.restTemplate;
-    }
-
-    public ExternaApiService(RestTemplate restTemplate) {
+    public RemoteApiService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
-    public String obterDadosDaApi() {
+    public String obterDadosSyncApi() {
         String url = apiUrl;
         return restTemplate.getForObject(url, String.class);
     }
