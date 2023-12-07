@@ -49,6 +49,7 @@ class ApiController {
 				// Configurar outros detalhes da requisição (método, cabeçalhos, etc.)
 				.build();
 
+		Logger.LogForLogger("THREAD ID[" + Thread.currentThread().getId() + "] " + ".. Executing sendAsync() .. ");
 		CompletableFuture<HttpResponse<String>> responseFuture = httpClient.sendAsync(request,
 				HttpResponse.BodyHandlers.ofString());
 
@@ -61,6 +62,9 @@ class ApiController {
 		try {
 			response = responseFuture.get();
 			responseBody = response.body();
+			Logger.LogForLogger("THREAD ID[" + Thread.currentThread().getId() + "] "
+					+ ".. Executing Http Response callBack () .. ");
+
 		} catch (InterruptedException | ExecutionException e) {
 			e.printStackTrace();
 		}
