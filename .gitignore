@@ -21,3 +21,7 @@ estudo-rest-node-java/java_rest_api/target/classes/com/example/study/http/Extern
 estudo-rest-node-java/java_rest_api/target/classes/com/example/study/utils/Logger.class
 estudo-rest-node-java/java_rest_api/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
 estudo-rest-node-java/java_rest_api/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+estudo-rest-node-java/java_rest_api/target/classes/com/example/study/ApiController.class
+estudo-rest-node-java/java_rest_api/target/classes/com/example/study/RestApiServer.class
+estudo-rest-node-java/java_rest_api/target/classes/com/example/study/http/ExternaApiService.class
+estudo-rest-node-java/java_rest_api/target/classes/com/example/study/utils/Logger.class

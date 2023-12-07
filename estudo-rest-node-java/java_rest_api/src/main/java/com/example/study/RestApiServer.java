@@ -75,7 +75,7 @@ class ApiController {
 
 		try {
 			Logger.LogForLogger("Thread id - Metodo sincrono: " + Thread.currentThread().getId());
-			jsonString = externaApiService.obterDadosDaApi();
+			jsonString = externaApiService.obterDadosSyncApi();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
