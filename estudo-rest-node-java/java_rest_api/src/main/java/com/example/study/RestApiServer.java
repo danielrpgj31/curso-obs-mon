@@ -49,7 +49,7 @@ class ApiController {
 				// Configurar outros detalhes da requisição (método, cabeçalhos, etc.)
 				.build();
 
-		Logger.LogForLogger(".. Executing sendAsync() .. ");
+		Logger.LogForLogger(".. REST Api /async -> call remote Rest Api NodeJs  .. ");
 		CompletableFuture<HttpResponse<String>> responseFuture = httpClient.sendAsync(request,
 				HttpResponse.BodyHandlers.ofString());
 
@@ -59,7 +59,7 @@ class ApiController {
 		// API.
 		// Exemplo: Api remota retorna em 20s. Se Loop com thread.sleep for até este
 		// tempo, os dois códigos finalizam exatamente ao mesmo tempo.
-		for (int i = 1; i <= 1; i++) {
+		for (int i = 1; i <= 8; i++) {
 			Logger.LogForLogger("[" + i + "] sleeping(2s) .. ");
 			Thread.sleep(2000);
 		}
