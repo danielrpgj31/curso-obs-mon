@@ -63,15 +63,18 @@ app.get("/cliente/:codigo", async (req, res) => {
   }
 });
 
+function chamataExterna() {
+  return new Promise((resolve) => {
+    general.delay(20000);
+    resolve("Processamento (20s) REST Api finalizada.");
+  });
+}
+
 //Api que tem retorno imediato
 //porém é atrasado diretamente pela latência do eventLoop.
 app.get("/now", async (req, res) => {
   try {
-    log.logMessage("Recebida chamada REST Api /now, processando...");
-    await processamentoAssincrono().then((resultado) => {
-      log.logMessage("Finalizado processamento da REST Api /now. (20s).");
-      res.json("" + resultado);
-    });
+    res.json("Processamento '/now' efetuada com sucesso.");
   } catch (error) {
     res.status(500).json({ error: "Erro ao processar api '/now'" });
   }
