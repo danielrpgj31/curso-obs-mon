@@ -6,20 +6,23 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 import com.example.study.http.RemoteApiService;
 import com.example.study.utils.Logger;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.concurrent.CompletableFuture;
 
 @SpringBootApplication
 public class RestApiServer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(RestApiServer.class, args);
-		Logger.getTimeForLogger("Inicio da aplicacao Springboot Web..");
+		Logger.LogForLogger("Inicio da aplicacao Springboot Web..");
 	}
 
 }
@@ -37,16 +40,84 @@ class ApiController {
 
 	@GetMapping("/async")
 	@Async
-	public CompletableFuture<String> asyncEndpoint() {
-		// Simula uma operação demorada
+	public CompletableFuture<String> asyncEndpoint() throws InterruptedException {
+		String apiUrl = this.externaApiService.getApiUrl();
+
+		HttpClient httpClient = HttpClient.newHttpClient();
+		HttpRequest request = HttpRequest.newBuilder()
+				.uri(URI.create(apiUrl))
+				// Configurar outros detalhes da requisição (método, cabeçalhos, etc.)
+				.build();
+
+		Logger.LogForLogger(".. REST Api /async -> call remote Rest Api NodeJs  .. ");
+		CompletableFuture<HttpResponse<String>> responseFuture = httpClient.sendAsync(request,
+				HttpResponse.BodyHandlers.ofString());
+
+		// Valida que realmente se pode executar codigo enquanto aguardamos a
+		// finalizacao de um API remota,
+		// sem que o tempo gasto no codigo local impacte no tempo de processamenta da
+		// API.
+		// Exemplo: Api remota retorna em 20s. Se Loop com thread.sleep for até este
+		// tempo, os dois códigos finalizam exatamente ao mesmo tempo.
+		for (int i = 1; i <= 8; i++) {
+			Logger.LogForLogger("[" + i + "] sleeping(2s) .. ");
+			Thread.sleep(2000);
+		}
+
+		// Aguardar a conclusão
+		HttpResponse<String> response;
+		String responseBody = "";
 		try {
-			Logger.getTimeForLogger("Thread id - Metodo assincrono: " + Thread.currentThread().getId());
-			Thread.sleep(20000);
-		} catch (InterruptedException e) {
+			response = responseFuture.get();
+			responseBody = response.body();
+			Logger.LogForLogger(".. Executing Http Response callBack () .. ");
+
+		} catch (InterruptedException | ExecutionException e) {
 			e.printStackTrace();
 		}
 
-		return CompletableFuture.completedFuture("Resposta síncrona!");
+		return CompletableFuture.completedFuture(responseBody);
+	}
+
+	@GetMapping("/async/study2")
+	@Async
+	public CompletableFuture<String> asyncStudy2Endpoint() throws InterruptedException {
+		String apiUrl = this.externaApiService.getApiUrl2();
+
+		HttpClient httpClient = HttpClient.newHttpClient();
+		HttpRequest request = HttpRequest.newBuilder()
+				.uri(URI.create(apiUrl))
+				// Configurar outros detalhes da requisição (método, cabeçalhos, etc.)
+				.build();
+
+		Logger.LogForLogger(".. REST Api /async/study2 -> call remote Rest Api NodeJs  .. ");
+		CompletableFuture<HttpResponse<String>> responseFuture = httpClient.sendAsync(request,
+				HttpResponse.BodyHandlers.ofString());
+
+		// Valida que realmente se pode executar codigo enquanto aguardamos a
+		// finalizacao de um API remota,
+		// sem que o tempo gasto no codigo local impacte no tempo de processamenta da
+		// API.
+		// Exemplo: Api remota retorna em 20s. Se Loop com thread.sleep for até este
+		// tempo, os dois códigos finalizam exatamente ao mesmo tempo.
+		for (int i = 1; i <= 8; i++) {
+			Logger.LogForLogger("[" + i + "] sleeping(2s) .. ");
+			Thread.sleep(2000);
+		}
+
+		// Aguardar a conclusão
+		HttpResponse<String> response;
+		String responseBody = "";
+		try {
+			response = responseFuture.get();
+			responseBody = response.body();
+			Logger.LogForLogger(".. Executing Http Response callBack () .. ");
+
+		} catch (InterruptedException | ExecutionException e) {
+			e.printStackTrace();
+		}
+
+		return CompletableFuture.completedFuture(responseBody);
 	}
 
 	@GetMapping("/sync/external")
@@ -55,7 +126,7 @@ class ApiController {
 		// Simula uma operação demorada
 
 		try {
-			Logger.getTimeForLogger("Thread id - Metodo sincrono: " + Thread.currentThread().getId());
+			Logger.LogForLogger(".. Consuming sync REST API() .. ");
 			jsonString = externaApiService.obterDadosSyncApi();
 		} catch (Exception e) {
 			e.printStackTrace();

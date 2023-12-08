@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "profiling-0heap": "node index-async-express-mysql.js",
+    "start": "node client-axios-java.js",
     "profiling-24heap": "node --trace-gc --max_semi_space_size=24 index-async-express-mysql.js",
     "profiling-48heap": "node --trace-gc --max_semi_space_size=48 index-async-express-mysql.js",
     "profiling-64heap": "node --trace-gc --max_semi_space_size=64 index-async-express-mysql.js"

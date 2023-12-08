@@ -19,6 +19,23 @@ const pool = mysql.createPool({
   queueLimit: 0,
 });
 
+function processamentoAssincrono() {
+  return new Promise((resolve) => {
+    general.delay(20000);
+    resolve("Processamento (20s) REST Api finalizada.");
+  });
+}
+
+//Api Request/Response sincrono
+app.get("/api/sync", (req, res) => {
+  log.logMessage("Recebida chamada REST Api /api/sync, processando...");
+  general.delay(20000);
+  log.logMessage("Processamento finalizado.");
+  res.json({
+    status: "Processamento (20s) REST Api 00110011 finalizado com sucesso.",
+  });
+});
+
 // Rota para buscar informações do cliente por código
 app.get("/cliente/:codigo", async (req, res) => {
   const codigoCliente = req.params.codigo;
@@ -50,7 +67,11 @@ app.get("/cliente/:codigo", async (req, res) => {
 //porém é atrasado diretamente pela latência do eventLoop.
 app.get("/now", async (req, res) => {
   try {
-    res.json("Processamento '/now' efetuada com sucesso.");
+    log.logMessage("Recebida chamada REST Api /now, processando...");
+    await processamentoAssincrono().then((resultado) => {
+      log.logMessage("Finalizado processamento da REST Api /now. (20s).");
+      res.json("" + resultado);
+    });
   } catch (error) {
     res.status(500).json({ error: "Erro ao processar api '/now'" });
   }
@@ -59,9 +80,11 @@ app.get("/now", async (req, res) => {
 //Seta o interval:: Vai ocupar o eventloop de forma a impactar toda a app
 //assim que o codigo principal dentro das chaves {}, for executado, vai parar
 //toda a aplicação, lembrando que é single-thread.
+/*
 setInterval(() => {
   general.delay(12000);
 }, 8000);
+*/
 
 // Inicia o servidor
 app.listen(port, () => {
