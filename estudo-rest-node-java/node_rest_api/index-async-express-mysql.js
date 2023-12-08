@@ -74,7 +74,11 @@ function chamataExterna() {
 //porém é atrasado diretamente pela latência do eventLoop.
 app.get("/now", async (req, res) => {
   try {
-    res.json("Processamento '/now' efetuada com sucesso.");
+    log.logMessage("Recebida chamada REST Api /now, processando...");
+    await processamentoAssincrono().then((resultado) => {
+      log.logMessage("Finalizado processamento da REST Api /now. (20s).");
+      res.json("" + resultado);
+    });
   } catch (error) {
     res.status(500).json({ error: "Erro ao processar api '/now'" });
   }
