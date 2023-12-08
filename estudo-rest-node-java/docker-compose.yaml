@@ -54,7 +54,7 @@ services:
     depends_on:
       - mysql-container
     ports:
-      - "8080:8080"
+      - "9001:9001"
     mem_limit: ${MEMORY_NODE_JAVA}
     memswap_limit: ${MEMORY_NODE_JAVA}
     networks:

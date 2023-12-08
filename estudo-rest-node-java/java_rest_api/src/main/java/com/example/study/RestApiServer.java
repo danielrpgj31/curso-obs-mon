@@ -40,7 +40,7 @@ class ApiController {
 
 	@GetMapping("/async")
 	@Async
-	public CompletableFuture<String> asyncEndpoint() {
+	public CompletableFuture<String> asyncEndpoint() throws InterruptedException {
 		String apiUrl = this.externaApiService.getApiUrl();
 
 		HttpClient httpClient = HttpClient.newHttpClient();
@@ -49,12 +49,16 @@ class ApiController {
 				// Configurar outros detalhes da requisição (método, cabeçalhos, etc.)
 				.build();
 
-		Logger.LogForLogger("THREAD ID[" + Thread.currentThread().getId() + "] " + ".. Executing sendAsync() .. ");
+		Logger.LogForLogger(".. Executing sendAsync() .. ");
 		CompletableFuture<HttpResponse<String>> responseFuture = httpClient.sendAsync(request,
 				HttpResponse.BodyHandlers.ofString());
 
 		// TODO: Implementar codigo assíncrono (interval), que nao exceda o tempo de
 		// retorno da api chamada
+		for (int i = 1; i <= 1; i++) {
+			Logger.LogForLogger("[" + i + "] sleeping(2s) .. ");
+			Thread.sleep(2000);
+		}
 
 		// Aguardar a conclusão
 		HttpResponse<String> response;
@@ -62,14 +66,13 @@ class ApiController {
 		try {
 			response = responseFuture.get();
 			responseBody = response.body();
-			Logger.LogForLogger("THREAD ID[" + Thread.currentThread().getId() + "] "
-					+ ".. Executing Http Response callBack () .. ");
+			Logger.LogForLogger(".. Executing Http Response callBack () .. ");
 
 		} catch (InterruptedException | ExecutionException e) {
 			e.printStackTrace();
 		}
 
-		return CompletableFuture.completedFuture("Http Body: " + responseBody);
+		return CompletableFuture.completedFuture(responseBody);
 	}
 
 	@GetMapping("/sync/external")
@@ -78,7 +81,7 @@ class ApiController {
 		// Simula uma operação demorada
 
 		try {
-			Logger.LogForLogger("Thread id - Metodo sincrono: " + Thread.currentThread().getId());
+			Logger.LogForLogger(".. Consuming sync REST API() .. ");
 			jsonString = externaApiService.obterDadosSyncApi();
 		} catch (Exception e) {
 			e.printStackTrace();
