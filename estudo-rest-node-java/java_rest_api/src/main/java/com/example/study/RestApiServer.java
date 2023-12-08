@@ -53,8 +53,12 @@ class ApiController {
 		CompletableFuture<HttpResponse<String>> responseFuture = httpClient.sendAsync(request,
 				HttpResponse.BodyHandlers.ofString());
 
-		// TODO: Implementar codigo assíncrono (interval), que nao exceda o tempo de
-		// retorno da api chamada
+		// Valida que realmente se pode executar codigo enquanto aguardamos a
+		// finalizacao de um API remota,
+		// sem que o tempo gasto no codigo local impacte no tempo de processamenta da
+		// API.
+		// Exemplo: Api remota retorna em 20s. Se Loop com thread.sleep for até este
+		// tempo, os dois códigos finalizam exatamente ao mesmo tempo.
 		for (int i = 1; i <= 1; i++) {
 			Logger.LogForLogger("[" + i + "] sleeping(2s) .. ");
 			Thread.sleep(2000);
