@@ -48,9 +48,8 @@ app.get("/cliente/:codigo", async (req, res) => {
 
 function chamataExterna() {
   return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve("Passaram-se 2 segundos!");
-    }, 2000);
+    general.delay(20000);
+    resolve("Processamento (20s) REST Api finalizada.");
   });
 }
 
@@ -58,9 +57,10 @@ function chamataExterna() {
 //porém é atrasado diretamente pela latência do eventLoop.
 app.get("/now", async (req, res) => {
   try {
-    log.logMessage("Chamada api rest externa...");
+    log.logMessage("Recebida chamada REST Api /now, processando...");
     await chamataExterna().then((resultado) => {
-      res.json("Chamada api rest externa: " + resultado);
+      log.logMessage("Finalizado processamento da REST Api /now. (20s).");
+      res.json("" + resultado);
     });
   } catch (error) {
     res.status(500).json({ error: "Erro ao processar api '/now'" });
@@ -70,9 +70,11 @@ app.get("/now", async (req, res) => {
 //Seta o interval:: Vai ocupar o eventloop de forma a impactar toda a app
 //assim que o codigo principal dentro das chaves {}, for executado, vai parar
 //toda a aplicação, lembrando que é single-thread.
+/*
 setInterval(() => {
   general.delay(12000);
 }, 8000);
+*/
 
 // Inicia o servidor
 app.listen(port, () => {
