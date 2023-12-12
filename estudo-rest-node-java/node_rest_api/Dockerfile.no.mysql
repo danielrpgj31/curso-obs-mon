@@ -1,0 +1,19 @@
+FROM node:alpine
+
+WORKDIR /app
+
+COPY ./package*.json ./
+
+RUN npm install
+
+COPY ./index-no-mysql.js .
+COPY ./metrics/* ./metrics/
+COPY ./utils/* ./utils/
+
+EXPOSE 3000
+
+#ENV UV_THREADPOOL_SIZE=30
+
+#app assíncrono / heap(64) / semi_space(0)
+CMD ["node", "index-no-mysql.js", "2>&1"]
+

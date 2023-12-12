@@ -1,2 +1,3 @@
 node_modules
 estudo-rest-node-java/java_rest_api/target/*
+estudo-rest-node-java/vagrant/.vagrant/*
