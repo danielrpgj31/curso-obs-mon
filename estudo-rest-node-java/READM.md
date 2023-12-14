@@ -1,3 +1,9 @@
+### CRI-O
+
+Como utilizar ferramentas específicas do CRI-O para exibir containers em execução, imagens, e outras opções.
+[CRI-O](cri-o.md)
+
+
 ### Referencias tecnicas
 
 1. Pushing and Pulling to and from Docker Hub
