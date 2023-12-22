@@ -10,7 +10,7 @@ COPY ./index-no-mysql.js .
 COPY ./metrics/* ./metrics/
 COPY ./utils/* ./utils/
 
-EXPOSE 3000
+EXPOSE 7001
 
 #ENV UV_THREADPOOL_SIZE=30
 
