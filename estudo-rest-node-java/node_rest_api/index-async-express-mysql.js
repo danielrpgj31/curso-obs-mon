@@ -63,13 +63,6 @@ app.get("/cliente/:codigo", async (req, res) => {
   }
 });
 
-function chamataExterna() {
-  return new Promise((resolve) => {
-    general.delay(20000);
-    resolve("Processamento (20s) REST Api finalizada.");
-  });
-}
-
 //Api que tem retorno imediato
 //porém é atrasado diretamente pela latência do eventLoop.
 app.get("/now", async (req, res) => {

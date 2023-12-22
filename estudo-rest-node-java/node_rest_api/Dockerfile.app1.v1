@@ -15,5 +15,5 @@ EXPOSE 7001
 
 #ENV UV_THREADPOOL_SIZE=30
 #app assíncrono / heap(64) / semi_space(0)
-CMD ["node", "index-no-mysql.js", "2>&1"]
+CMD ["node", "index-app1.js", "2>&1"]
 

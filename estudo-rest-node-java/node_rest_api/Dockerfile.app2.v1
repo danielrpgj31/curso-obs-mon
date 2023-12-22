@@ -1,0 +1,18 @@
+FROM node:alpine
+
+WORKDIR /app
+
+COPY ./package*.json ./
+RUN npm install
+
+#MODULES
+COPY ./metrics/* ./metrics/
+COPY ./utils/* ./utils/
+
+#APP
+COPY ./index-no-mysql.js .
+EXPOSE 7001
+
+#ENV UV_THREADPOOL_SIZE=30
+#app assíncrono / heap(64) / semi_space(0)
+CMD ["node", "index-app2.js", "2>&1"]
