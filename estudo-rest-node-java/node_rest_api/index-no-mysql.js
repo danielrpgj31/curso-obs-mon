@@ -15,7 +15,7 @@ function processamentoAssincrono() {
 }
 
 //Api Request/Response sincrono
-app.get("/api/sync", (req, res) => {
+app.get("/api/delay", (req, res) => {
   log.logMessage("Recebida chamada REST Api /api/sync, processando...");
   general.delay(20000);
   log.logMessage("Processamento finalizado.");
@@ -26,13 +26,25 @@ app.get("/api/sync", (req, res) => {
 
 //Api que tem retorno imediato
 //porém é atrasado diretamente pela latência do eventLoop.
-app.get("/now", async (req, res) => {
+app.get("/api/asyncnow", async (req, res) => {
   try {
     log.logMessage("Recebida chamada REST Api /now, processando...");
     await processamentoAssincrono().then((resultado) => {
       log.logMessage("Finalizado processamento da REST Api /now. (20s).");
       res.json("" + resultado);
     });
+  } catch (error) {
+    res.status(500).json({ error: "Erro ao processar api '/now'" });
+  }
+});
+
+//Api que tem retorno imediato
+//porém é atrasado diretamente pela latência do eventLoop.
+app.get("/api/syncnow", (req, res) => {
+  try {
+    log.logMessage("Recebida chamada REST Api /now, processando...");
+    log.logMessage("Finalizado processamento da REST Api /now. (20s).");
+    res.status(200).json("Retorno da api /now.");
   } catch (error) {
     res.status(500).json({ error: "Erro ao processar api '/now'" });
   }

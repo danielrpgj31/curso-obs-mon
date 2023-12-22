@@ -1,1 +1,0 @@
-docker build -t api-rest-nodejs-dummy -f Dockerfile.no.mysql .
