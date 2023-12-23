@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app2v1-deployment
+  namespace: curso
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app2v1
+  template:
+    metadata:
+      labels:
+        app: app2v1
+    spec:
+      containers:
+      - name: app2v1
+        image: danielribeirojr/app2:v1
+        imagePullPolicy: Always  # Definir imagePullPolicy para Always
+        ports:
+        - containerPort: 7001
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: app2v1-service
+  namespace: curso
+spec:
+  selector:
+    app: app2v1
+  ports:
+    - protocol: TCP
+      port: 7001
+      targetPort: 7001
+      nodePort: 32001
+  type: NodePort
