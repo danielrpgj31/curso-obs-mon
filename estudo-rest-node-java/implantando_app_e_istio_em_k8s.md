@@ -7,7 +7,8 @@ $  docker build -t app-sample-istio:v1 -f Dockerfile.no.mysql .
 $  docker images
 $  docker tag 8a9f14a2da6b danielribeirojr/app-sample-istio:v1
 $  docker images
-$  docker push danielribeirojr/app-sample-istio:v1
+$  docker push danielribeirojr/app1:v1
+$  docker push danielribeirojr/app2:v1
 ```
 
 ##Implantar App no K8S
@@ -19,3 +20,5 @@ $  docker push danielribeirojr/app-sample-istio:v1
 ##Configurar Ingressgateway com App
 
 ##Testar App pelo Ingressgateway
+
+
