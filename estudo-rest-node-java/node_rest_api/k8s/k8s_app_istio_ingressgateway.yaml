@@ -29,13 +29,13 @@ spec:
   http:
   - match:
     - uri:
-        exact: /api/syncnow
+        exact: /api/asyncnow
     - uri:
         prefix: /api/sync
     - uri:
         prefix: /now
     route:
     - destination:
-        host: api-rest-service
+        host: app1v1-service
         port:
           number: 7001

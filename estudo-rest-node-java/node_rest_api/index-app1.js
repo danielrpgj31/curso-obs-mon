@@ -7,13 +7,6 @@ const port = 7001;
 
 appMetrics.setMetricsRoute(app);
 
-function processamentoAssincrono() {
-  return new Promise((resolve) => {
-    general.delay(20000);
-    resolve("Processamento (20s) REST Api finalizada.");
-  });
-}
-
 //Api Request/Response sincrono
 app.get("/api/delay", (req, res) => {
   log.logMessage("Recebida chamada REST Api /api/sync, processando...");
@@ -27,20 +20,20 @@ app.get("/api/delay", (req, res) => {
 //Api que tem retorno imediato
 //porém é atrasado diretamente pela latência do eventLoop.
 app.get("/api/asyncnow", async (req, res) => {
+  const resultado = {
+    transaction: "0X0D0EDDD"
+  }
   try {
-    log.logMessage("Recebida chamada REST Api /now, processando...");
-    await processamentoAssincrono().then((resultado) => {
-      log.logMessage("Finalizado processamento da REST Api /now. (20s).");
-      res.json("" + resultado);
-    });
+    log.logMessage("Recebida chamada REST Api /api/asyncnow, processando...");
+    res.json(resultado);
   } catch (error) {
-    res.status(500).json({ error: "Erro ao processar api '/now'" });
+    res.status(500).json({ error: "Erro ao processar api '/api/asyncnow'" });
   }
 });
 
 //Api que tem retorno imediato
 //porém é atrasado diretamente pela latência do eventLoop.
-app.get("/api/syncnow", (req, res) => {
+app.get("/api/syncnow1", (req, res) => {
   try {
     log.logMessage("Recebida chamada REST Api /now, processando...");
     log.logMessage("Finalizado processamento da REST Api /now. (20s).");

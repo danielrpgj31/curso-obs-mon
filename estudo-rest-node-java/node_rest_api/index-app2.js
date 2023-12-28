@@ -2,10 +2,21 @@ const express = require("express");
 const appMetrics = require("./metrics/defaultMetrics");
 const log = require("./utils/log");
 const general = require("./utils/general");
+const axios = require('axios');
 const app = express();
 const port = 7001;
 
 appMetrics.setMetricsRoute(app);
+
+async function fetchAsyncRestApiJava() {
+  try {
+    const response = await axios.get("http://axios:7001/api/asyncnow");
+    return response.data;
+  } catch (error) {
+    log.logMessage("Erro ao obter dados:" + error.message);
+    //console.error("Erro ao obter dados:", error.message);
+  }
+}
 
 function processamentoAssincrono() {
   return new Promise((resolve) => {
@@ -16,11 +27,19 @@ function processamentoAssincrono() {
 
 //Api Request/Response sincrono
 app.get("/api/app2/gethex", (req, res) => {
+
+  const fechDataPromise = fetchAsyncRestApiJava();
+
   log.logMessage("Recebida chamada REST Api /api/app2/gethex, processando...");
-  general.delay(7000);
+
+  log.logMessage("Executando chamada externa para api destino /api/asyncnow");
+
+  log.logMessage(`Retorno: ${fechDataPromise}`);
+
   log.logMessage("Processamento finalizado.");
+  
   res.json({
-    status: "0xFFH7322133.",
+    retorno: fechDataPromise,
   });
 });
 
