@@ -10,7 +10,7 @@ appMetrics.setMetricsRoute(app);
 
 async function fetchAsyncRestApiJava() {
   try {
-    const response = await axios.get("http://axios:7001/api/asyncnow");
+    const response = await axios.get("http://app1v1-service:7001/api/asyncnow");
     return response.data;
   } catch (error) {
     log.logMessage("Erro ao obter dados:" + error.message);
