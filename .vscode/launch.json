@@ -41,11 +41,11 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Api Rest Debug",
+            "name": "Api Rest Debug - Index App2",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/api-rest-customer/app/index-async-express-mysql.js"
+            "program": "${workspaceFolder}/estudo-rest-node-java/node_rest_api/index-app2.js"
         }
 
 

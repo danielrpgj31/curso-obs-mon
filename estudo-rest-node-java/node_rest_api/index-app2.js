@@ -4,19 +4,9 @@ const log = require("./utils/log");
 const general = require("./utils/general");
 const axios = require('axios');
 const app = express();
-const port = 7001;
+const port = 7002;
 
 appMetrics.setMetricsRoute(app);
-
-async function fetchAsyncRestApiJava() {
-  try {
-    const response = await axios.get("http://app1v1-service:7001/api/asyncnow");
-    return response.data;
-  } catch (error) {
-    log.logMessage("Erro ao obter dados:" + error.message);
-    //console.error("Erro ao obter dados:", error.message);
-  }
-}
 
 function processamentoAssincrono() {
   return new Promise((resolve) => {
@@ -25,22 +15,34 @@ function processamentoAssincrono() {
   });
 }
 
-//Api Request/Response sincrono
-app.get("/api/app2/gethex", (req, res) => {
+async function fetchAsyncRestApiJava() {
+  try {
+    //const response = await axios.get("http://app1v1-service:7001/api/asyncnow");
+    const response = await axios.get("http://localhost:7002/api/asyncnow");
+    return response.data;
+  } catch (error) {
+    log.logMessage("Erro ao obter dados:" + error.message);
+    //console.error("Erro ao obter dados:", error.message);
+  }
+}
 
-  const fechDataPromise = fetchAsyncRestApiJava();
+
+//Api Request/Response sincrono
+app.get("/api/app2/gethex", async (req, res) => {
 
   log.logMessage("Recebida chamada REST Api /api/app2/gethex, processando...");
-
   log.logMessage("Executando chamada externa para api destino /api/asyncnow");
 
-  log.logMessage(`Retorno: ${fechDataPromise}`);
+  await fetchAsyncRestApiJava().then((retorno) => {
 
-  log.logMessage("Processamento finalizado.");
+    log.logMessage(`Retorno: ${retorno}`);
+
+    res.json({
+      retorno: retorno,
+    });
   
-  res.json({
-    retorno: fechDataPromise,
-  });
+  })
+
 });
 
 //Api que tem retorno imediato

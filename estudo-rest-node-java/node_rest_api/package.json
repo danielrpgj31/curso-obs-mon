@@ -1,11 +1,11 @@
 {
-  "name": "api-rest-costumer",
+  "name": "apps_curso",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node client-axios-java.js",
-    "profiling-24heap": "node --trace-gc --max_semi_space_size=24 index-async-express-mysql.js",
+    "app1": "node index-app1.js",
+    "app2": "node index-app2.js",
     "profiling-48heap": "node --trace-gc --max_semi_space_size=48 index-async-express-mysql.js",
     "profiling-64heap": "node --trace-gc --max_semi_space_size=64 index-async-express-mysql.js"
   },
