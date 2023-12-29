@@ -17,8 +17,8 @@ function processamentoAssincrono() {
 
 async function fetchAsyncRestApiJava() {
   try {
-    //const response = await axios.get("http://app1v1-service:7001/api/asyncnow");
-    const response = await axios.get("http://localhost:7002/api/asyncnow");
+    const response = await axios.get("http://app1v1-service:7001/api/asyncnow");
+    //const response = await axios.get("http://localhost:7002/api/asyncnow");
     return response.data;
   } catch (error) {
     log.logMessage("Erro ao obter dados:" + error.message);
