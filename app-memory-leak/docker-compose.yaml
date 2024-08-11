@@ -3,17 +3,17 @@ networks:
   networkall:
 services:
   cadvisor:
-      image: gcr.io/cadvisor/cadvisor
-      volumes:
-        - /var/run:/var/run:rw
-        - /sys:/sys:ro
-        - /var/lib/docker/:/var/lib/docker:ro
-      ports:
-        - "8080:8080"      
-      expose:
-        - 8080
-      networks:
-        - networkall
+    image: gcr.io/cadvisor/cadvisor
+    volumes:
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    ports:
+      - "8080:8080"      
+    expose:
+      - 8080
+    networks:
+      - networkall
   app:
     image: ${IMAGEM}
     ports:
