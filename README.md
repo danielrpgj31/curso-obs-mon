@@ -20,10 +20,12 @@ export OTEL_EXPORTER_JAEGER_SERVICE_NAME=my-app
 export OTEL_EXPORTER_JAEGER_AGENT_HOST=jaeger-agent
 export OTEL_EXPORTER_JAEGER_AGENT_PORT=6831
 
+-Dotel.service.name=address-api -Dotel.traces.exporter=otlp -Dotel.metrics.exporter=none -Dotel.exporter.otlp.endpoint=http://localhost:4318 -Dotel.exporter.otlp.protocol=http/protobuf
+
 java -javaagent:./opentelemetry-javaagent.jar \
     -Dotel.service.name=Customer-Services \
     -Dotel.traces.exporter=otlp \
-    -Dotel.exporter.otlp.endpoint=http://localhost:4318/v1/traces \
+    -Dotel.exporter.otlp.endpoint=http://localhost:4318 \
     -Dotel.metrics.exporter=none \
     -Dotel.exporter.otlp.protocol=http/protobuf \
     -Dotel.logs.exporter=none \
