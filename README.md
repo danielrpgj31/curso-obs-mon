@@ -1,7 +1,7 @@
 docker run -d --name jaeger \
   -e JAEGER_SERVICE_NAME=jaeger \
   -e COLLECTOR_OTLP_ENABLED=true \
-  -p 5775:5775 -p 6831:6831/udp -p 5778:5778 -p 14250:14250 -p 14268:14268 -p 16686:16686 -p 4317:4317 -p 4318:4318 jaegertracing/all-in-one:1.41
+  -p 5775:5775 -p 6831:6831/udp -p 5778:5778 -p 14250:14250 -p 14268:14268 -p 16686:16686 -p 44317:4317 -p 44318:4318 jaegertracing/all-in-one:1.41
 
 curl -L -o opentelemetry-javaagent.jar https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent.jar
 
