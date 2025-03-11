@@ -2,9 +2,16 @@ import * as opentelemetry from '@opentelemetry/sdk-node';
 import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-proto';
 import { OTLPMetricExporter } from '@opentelemetry/exporter-metrics-otlp-proto';
+import { Resource } from '@opentelemetry/resources';
 import { PeriodicExportingMetricReader } from '@opentelemetry/sdk-metrics';
+import { ATTR_SERVICE_NAME } from '@opentelemetry/semantic-conventions';
 
 const sdk = new opentelemetry.NodeSDK({
+  
+  resource: new Resource({
+    [ATTR_SERVICE_NAME]: 'meu-servico-node',
+  }),
+
   traceExporter: new OTLPTraceExporter({
     // optional - default url is http://localhost:4318/v1/traces
     url: 'http://localhost:4318/v1/traces',
