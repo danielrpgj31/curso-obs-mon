@@ -30,6 +30,7 @@ public class CustomerServiceApplication {
     public String startTrace(@RequestParam String name) {
         //Span span = tracer.spanBuilder("start-trace-java").startSpan();
 
+        //String response = restTemplate.getForObject("http://app-tracing-node:8081/trace?name=" + name, String.class);
         String response = restTemplate.getForObject("http://localhost:8081/trace?name=" + name, String.class);
         
         //span.end();

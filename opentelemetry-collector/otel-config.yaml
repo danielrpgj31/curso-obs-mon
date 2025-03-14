@@ -9,7 +9,7 @@ receivers:
 exporters:
   debug:  
   otlp:
-    endpoint: "http://127.0.0.1:14250"  # Endereço do Jaeger (ajuste conforme seu ambiente)
+    endpoint: "http://localhost:14250"  # Endereço do Jaeger (ajuste conforme seu ambiente)
     tls:
       insecure: true
   prometheus:

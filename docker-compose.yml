@@ -1,77 +1,61 @@
 version: '2.1'
+
 networks:
   monitoring:
-    driver: bridge
+    driver: bridge  # Definição corrigida
+
 volumes:
-    prometheus_data: {}
-    grafana_data: {}
+  prometheus_data: {}
+  grafana_data: {}
+
 services:
-  prometheus:
-    image: prom/prometheus:v2.20.1
-    container_name: prometheus
-    volumes:
-      - ./prometheus:/etc/prometheus
-      - prometheus_data:/prometheus
+  jaeger-all-in-one:
+    image: jaegertracing/all-in-one:latest
+    container_name: jaeger
     ports:
-      - 9090:9090
-    expose:
-      - 9090
+      - "14250:14250"
+      - "16686:16686"
     networks:
       - monitoring
-  grafana:
-    image: grafana/grafana:7.1.5
-    container_name: grafana
+
+  telemetry-collector:
+    image: otel/opentelemetry-collector:latest
+    container_name: telemetry-collector
     volumes:
-      - grafana_data:/var/lib/grafana
-      - ./grafana/provisioning:/etc/grafana/provisioning
-    environment:
-      - GF_AUTH_DISABLE_LOGIN_FORM=true
-      - GF_AUTH_ANONYMOUS_ENABLED=true
-      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - ./opentelemetry-collector/otel-config.yaml:/etc/otel-config.yaml
+    command: ["--config=/etc/otel-config.yaml"]
     ports:
-      - 3000:3000
-    expose:
-      - 3000
+      - "4317:4317"
+      - "4318:4318"
+      - "8889:8889"
+      - "55679:55679"
     networks:
       - monitoring
-  loki:
-    image: grafana/loki:2.9.2
-    ports:
-      - "3100:3100"
-    expose:
-      - 3100
-    volumes:
-      - ./promtail-loki/config/loki-config.yaml:/etc/loki/local-config.yaml  # Mapeie o arquivo de configuração do Loki    command: -config.file=/etc/loki/local-config.yaml
-    networks:
-      - monitoring
-  promtail:
-    image: grafana/promtail:2.9.2
-    volumes:
-      - /var/log:/var/log
-    command: -config.file=/etc/promtail/config.yml
-    networks:
-      - monitoring
-  app:
+
+  app-customer-services:
     build:
-      context: appmemoryleak
+      context: ./applications/customer-service  # Caminho corrigido
       dockerfile: Dockerfile  
+    container_name: app-customer-service
     ports:
-      - 8081:8081
-    mem_limit: 128m
-    memswap_limit: 128m
+      - "8080:8080"
     expose:
-      - 8081
+      - "8080"
     networks:
       - monitoring
-  cadvisor:
-      image: gcr.io/cadvisor/cadvisor
-      volumes:
-        - /var/run:/var/run:rw
-        - /sys:/sys:ro
-        - /var/lib/docker/:/var/lib/docker:ro
-      ports:
-        - "8080:8080"      
-      expose:
-        - 8080
-      networks:
-        - monitoring
+    depends_on:
+      - telemetry-collector
+
+  app-tracing-node:
+    build:
+      context: ./applications/tracing-node
+      dockerfile: Dockerfile
+    container_name: app-tracing-node
+    ports:
+      - "8081:8081"
+    expose:
+      - "8081"
+    networks:
+      - monitoring
+    depends_on:
+      - telemetry-collector
