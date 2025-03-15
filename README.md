@@ -1,9 +1,19 @@
 ## SETUP & RUN Jaeger
 
+// Sem collector faz bind na porta 4317 e 4318
+
 docker run -d --name jaeger \
   -e JAEGER_SERVICE_NAME=jaeger \
   -e COLLECTOR_OTLP_ENABLED=true \
   -p 5775:5775 -p 6831:6831/udp -p 5778:5778 -p 14250:14250 -p 14268:14268 -p 16686:16686 -p 4317:4317 -p 4318:4318 jaegertracing/all-in-one:1.41
+
+// Com collector, não faz bind na porta 4317 e 4318
+
+docker run -d --name jaeger \
+  -e JAEGER_SERVICE_NAME=jaeger \
+  -e COLLECTOR_OTLP_ENABLED=true \
+  -p 5775:5775 -p 6831:6831/udp -p 5778:5778 -p 14250:14250 -p 14268:14268 -p 16686:16686 jaegertracing/all-in-one:1.41
+
 
 ## SETUP & RUN OpenTelemetry Collector
 
