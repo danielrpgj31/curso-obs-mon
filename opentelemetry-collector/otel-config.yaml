@@ -12,8 +12,6 @@ exporters:
     endpoint: "http://localhost:14250"  # Endereço do Jaeger (ajuste conforme seu ambiente)
     tls:
       insecure: true
-  prometheus:
-    endpoint: "0.0.0.0:8889"
 
 service:
   pipelines:

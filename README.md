@@ -19,6 +19,8 @@ docker run -d --name jaeger \
 
 docker run -d --name otel-collector   -p 4317:4317 -p 4318:4318 -p 9464:9464   -v ./opentelemetry-collector/otel-config.yaml:/etc/otel/config.yaml  otel/opentelemetry-collector-contrib
 
+
+
 ## SETUP & RUN JAVA 
 
 curl -L -o opentelemetry-javaagent.jar https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent.jar
